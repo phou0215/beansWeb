@@ -3,6 +3,7 @@ var ele_sDate = $('#start-picker');
 var ele_eDate = $('#end-picker');
 var ele_comp = $('#comp-picker');
 var ele_item = $('#item-picker');
+// var data_table = null;
 
 $(function(){
 
@@ -21,7 +22,7 @@ $(function(){
           type:"get",
           dataType:"json",
           async: true,
-          data:{sDate:ele_sDate.val(), eDate:ele_eDate.val(), comp:ele_comp.val(), itemcls:ele_item.val()},
+          data:{sDate:changeDateFormat(ele_sDate.val()), eDate:changeDateFormat(ele_eDate.val()), comp:ele_comp.val(), itemcls:ele_item.val()},
           // headers: {
           //   "accept":"application/json",
           //   "Access-Control-Allow-Origin":"*",
@@ -34,7 +35,7 @@ $(function(){
             // console.log(settings.url);
           },
           complete:function(){
-            ele_table.DataTable({
+             ele_table.DataTable({
               data:jsonData,
               columns:[
                 {data:"COMP_NM"},
@@ -109,7 +110,7 @@ function setTableData(){
       type:"get",
       dataType:"json",
       async: true,
-      data:{sDate:ele_sDate.val(), eDate:ele_eDate.val(), comp:ele_comp.val(), itemcls:ele_item.val()},
+      data:{sDate:changeDateFormat(ele_sDate.val()), eDate:changeDateFormat(ele_eDate.val()), comp:ele_comp.val(), itemcls:ele_item.val()},
       // headers: {
       //   "accept":"application/json",
       //   "Access-Control-Allow-Origin":"*",
@@ -119,9 +120,12 @@ function setTableData(){
         jsonData = data;
       },
       beforeSend:function(jqXHR, settings){
-        // console.log(settings.url);
+        console.log(settings.url);
       },
       complete:function(){
+        //table
+        // table data relaod
+        ele_table.DataTable().clear().destroy();
         ele_table.DataTable({
           data:jsonData,
           columns:[
@@ -188,4 +192,9 @@ function setTableData(){
 
 function gridProductCategory(data){
   return;
+}
+function changeDateFormat(date){
+  // var changeFormat = date.toDateString();
+  var changeFormat = date.replace(/-/gi, '');
+  return changeFormat;
 }

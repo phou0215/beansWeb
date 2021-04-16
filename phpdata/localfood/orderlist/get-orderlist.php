@@ -25,7 +25,7 @@
       if($flag_sdate && $flag_edate){
         $sDate = $_GET['sDate'];
         $eDate = $_GET['eDate'];
-        $url = $url.'&sDate='.$sDate.'&eDate='.$eDate;
+        $url = $url.'&sdate='.$sDate.'&edate='.$eDate;
       }
       if($flag_comp){
         $comp = $_GET['comp'];
