@@ -250,7 +250,7 @@
                                   <option value="B04">축산물</option>
                                   <option value="B05">가공식품</option>
                                 </select>
-                                <button id='order-update' class="btn btn-secondary ml-2 w-2" onclick="refresh();">UPDATE</button>
+                                <button id='order-update' class="btn btn-secondary ml-2 w-2" onclick="setTableData();">UPDATE</button>
                             </span>
                             </div>
                             <div class="card-body p-0">
@@ -267,7 +267,7 @@
                                             <th class="border-0 text-center">규격</th>
                                             <th class="border-0 text-center">공급처</th>
                                             <th class="border-0 text-center">수량</th>
-                                            <th class="border-0 text-center">단위</th>
+                                            <th class="border-0 text-center">빈도수</th>
                                             <th class="border-0 text-center">금액</th>
                                           </tr>
                                       </thead>
