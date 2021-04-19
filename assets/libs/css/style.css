@@ -7132,7 +7132,8 @@ li.local-area{
 li.local-area:hover{
    pointer-events: none !important;
 }
-#table-data_wrapper {
+#table-data_wrapper,
+#category-data_wrapper {
   padding: 0.9rem !important;
 }
 
@@ -7140,7 +7141,8 @@ li.local-area:hover{
 #table-data_wrapper table-data_info,
 #table-data_wrapper option,
 #table-data_wrapper select,
-#table-data_wrapper #table-data_paginate{
+#table-data_wrapper #table-data_paginate,
+#category-data_wrapper #category-data_paginate{
   color:whitesmoke;
 }
 
@@ -7148,7 +7150,8 @@ li.local-area:hover{
   background-color: rgba(2,22,1,0.8);
 }
 
-#table-data_wrapper td {
+#table-data_wrapper td,
+#category-data_wrapper td{
   color:black;
 }
 

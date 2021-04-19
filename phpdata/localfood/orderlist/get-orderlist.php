@@ -9,7 +9,13 @@
     try{
 
       $result = null;
+      $index_centers = null;
+      $index_items = null;
+      $values_centers = null;
+      $values_items = null;
+      $values_category = null;
       $datas = array();
+
       // select all schedule
       $flag_sdate = isset($_GET['sDate']);
       $flag_edate = isset($_GET['eDate']);
@@ -51,9 +57,79 @@
       $result = curl_exec($ch); // curl 실행 및 결과값 저장
       $result = json_decode($result, true);
       $result = $result['list'];
-      // send json format
 
-      $jsonTable = json_encode($result, JSON_UNESCAPED_UNICODE);
+      // get supplier and items static Counts
+      $i = 0;
+      $temp_suppliers = array();
+      $temp_items = array();
+      $temp_categories = array();
+      //regular express of items
+      $regular = "/([\(\/].*)/";
+      while($i < count($result)){
+
+        $supplier = $result[$i]['PU_CUST_NM'];
+        $item = $result[$i]['ITEMCLS3_NM'];
+        $category = $result[$i]['ITEMCLS2_NM'];
+
+        $filter_supplier = preg_replace($regular,"",str_replace("\\\\\\","",$supplier));
+        $filter_item =  preg_replace($regular,"",str_replace("\\\\\\","",$item));
+        $filter_category =  preg_replace($regular,"",str_replace("\\\\\\","",$category));
+
+        if($filter_supplier){
+          array_push($temp_suppliers, trim($filter_supplier));
+        }
+        if($filter_item){
+          array_push($temp_items, trim($filter_item));
+        }
+        if($filter_category){
+          array_push($temp_categories, trim($filter_category));
+        }
+        $i++;
+      }
+      // sort suppliers and items by values DESC
+      $dict_suppliers = array_count_values($temp_suppliers);
+      $dict_items = array_count_values($temp_items);
+      $dict_categories = array_count_values($temp_categories);
+      arsort($dict_suppliers);
+      arsort($dict_items);
+      arsort($dict_categories);
+
+      $i = 0;
+      $array_categories = array();
+      $keys_categories = array_keys($dict_categories);
+      $values_categories = array_values($dict_categories);
+      // set Category table datas
+      while($i < count($keys_categories)){
+        $temp = array(
+          'class' => $keys_categories[$i],
+          'count' => $values_categories[$i]
+        );
+        array_push($array_categories, $temp);
+        $i++;
+      }
+
+      //key and value extract
+      $index_centers = array_keys($dict_suppliers);
+      $values_centers = array_values($dict_suppliers);
+      $index_items = array_keys($dict_items);
+      $values_items = array_values($dict_items);
+      //Top 20 slice array
+      $index_centers = array_slice($index_centers, 0, 30);
+      $index_items = array_slice($index_items, 0, 30);
+      $values_centers = array_slice($values_centers, 0, 30);
+      $values_items = array_slice($values_items, 0, 30);
+
+      // send json format
+      $return_data = array(
+        'tables' => $result,
+        'index_centers' => $index_centers,
+        'index_items' => $index_items,
+        'values_centers' => $values_centers,
+        'values_items' => $values_items,
+        'categories' => $array_categories
+      );
+
+      $jsonTable = json_encode($return_data, JSON_UNESCAPED_UNICODE);
       header('Content-Type: application/json');
       echo $jsonTable;
 

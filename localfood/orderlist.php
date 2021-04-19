@@ -220,7 +220,8 @@
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header d-flex">
-                              <h2 class="card-header-title">Weather</h2>
+                              <h2 class="card-header-title">Order List Table</h2>
+                              <button id='csv-download' class="btn btn-rounded btn-secondary ml-3 w-2">CSV</button>
                               <span class="ml-auto w-auto">
                                 <label class="ml-auto w-auto" for="start-picker" style="color:white;">시작일</label>
                                 <input id="start-picker" class="ml-2 w-auto btn-primary" type="date" name="sdate" value="" style="height:37px;">
@@ -247,10 +248,10 @@
                                   <option value="ALL">전체</option>
                                   <option value="B01" selected='selected'>농산물</option>
                                   <option value="B02">수산물</option>
-                                  <option value="B04">축산물</option>
-                                  <option value="B05">가공식품</option>
+                                  <option value="B03">축산물</option>
+                                  <option value="B04">가공식품</option>
                                 </select>
-                                <button id='order-update' class="btn btn-secondary ml-2 w-2" onclick="setTableData();">UPDATE</button>
+                                <button id='order-update' class="btn btn-rounded btn-secondary ml-2 w-2" onclick="setTableData();">UPDATE</button>
                             </span>
                             </div>
                             <div class="card-body p-0">
@@ -284,99 +285,56 @@
                   <!-- simple calendar -->
                   <!-- ============================================================== -->
                   <div class="row">
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header"> Product Category</h5>
-                            <div class="card-body">
-                                <div class="ct-chart-category ct-golden-section" style="height: 315px;"></div>
-                                <div class="text-center m-t-40">
-                                    <span class="legend-item mr-3">
-                                            <span class="fa-xs text-primary mr-1 legend-tile"><i class="fa fa-fw fa-square-full "></i></span><span class="legend-text">Man</span>
-                                    </span>
-                                    <span class="legend-item mr-3">
-                                        <span class="fa-xs text-secondary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
-                                    <span class="legend-text">Woman</span>
-                                    </span>
-                                    <span class="legend-item mr-3">
-                                        <span class="fa-xs text-info mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span>
-                                    <span class="legend-text">Accessories</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="float-right">
-                                        <select class="custom-select">
-                                            <option selected>Today</option>
-                                            <option value="1">Weekly</option>
-                                            <option value="2">Monthly</option>
-                                            <option value="3">Yearly</option>
-                                        </select>
-                                    </div>
-                                <h5 class="mb-0"> Product Sales</h5>
+                                  <select id="suppliers-count-picker" class="custom-select btn-primary" onchange="gridCenterChart();">
+                                    <option value="10" selected="selected">Top 10</option>
+                                    <option value="20">Top 20</option>
+                                    <!-- <option value="30">Top 30</option> -->
+                                  </select>
+                               </div>
+                              <h3 class="card-header-title mb-0">Supplier's Ordered Counts</h3>
                             </div>
                             <div class="card-body">
-                                <div class="ct-chart-product ct-golden-section"></div>
+                                <canvas id="center-chart" width="220" height="120"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="float-right">
+                                  <select id="items-count-picker" class="custom-select btn-primary" onchange="gridItemChart();">
+                                    <option value="10" selected="selected">Top 10</option>
+                                    <option value="20">Top 20</option>
+                                    <!-- <option value="30">Top 30</option> -->
+                                  </select>
+                               </div>
+                              <h3 class="card-header-title mb-0">Ordered Items Each Supplier</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="item-chart" width="220" height="120"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-12 col-md-6 col-sm-12 col-12">
                         <!-- ============================================================== -->
                         <!-- top perfomimg  -->
                         <!-- ============================================================== -->
                         <div class="card">
-                            <h5 class="card-header">Top Performing Campaigns</h5>
+                            <h3 class="card-header-title card-header">Category Counts</h3>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table no-wrap p-table">
-                                        <thead class="bg-light">
-                                            <tr class="border-0">
-                                                <th class="border-0">Campaign</th>
-                                                <th class="border-0">Visits</th>
-                                                <th class="border-0">Revenue</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Campaign#1</td>
-                                                <td>98,789 </td>
-                                                <td>$4563</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#2</td>
-                                                <td>2,789 </td>
-                                                <td>$325</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#3</td>
-                                                <td>1,459 </td>
-                                                <td>$225</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#4</td>
-                                                <td>5,035 </td>
-                                                <td>$856</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#5</td>
-                                                <td>10,000 </td>
-                                                <td>$1000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Campaign#5</td>
-                                                <td>10,000 </td>
-                                                <td>$1000</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">
-                                                    <a href="#" class="btn btn-outline-light float-right">Details</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                  <table id='category-data' class="stripe row-border order-column" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                          <th class="border-0 text-center">중분류</th>
+                                          <th class="border-0 text-center">Counts</th>
+                                        </tr>
+                                    </thead>
+                                  </table>
                                 </div>
                             </div>
                         </div>
@@ -425,6 +383,8 @@
       <script src="/beans/assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
       <script src="/beans/assets/vendor/charts/charts-bundle/chartjs.js"></script>
       <script src="/beans/assets/libs/js/orderlist/get-orderlist.js"></script>
+      <script src="/beans/assets/libs/js/orderlist/get-center-chart.js"></script>
+      <script src="/beans/assets/libs/js/orderlist/get-item-chart.js"></script>
       <script src="/beans/assets/libs/js/main-js.js"></script>
   </body>
 
