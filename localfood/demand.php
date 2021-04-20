@@ -7,6 +7,7 @@
                   alert('접속을 위해 로그인이 필요합니다.');
                   location.href='/beans/account/signin.php'
                 </script>";}}
+
  ?>
 <!doctype html>
 <html lang="en">
@@ -19,6 +20,7 @@
       <link rel="stylesheet" href="/beans/assets/vendor/bootstrap/css/bootstrap.min.css" />
       <link rel="stylesheet" href="/beans/assets/vendor/fonts/circular-std/style.css" />
       <link rel="stylesheet" href="/beans/assets/libs/css/style.css" />
+      <link rel="stylesheet" href="/beans/assets/vendor/charts/morris-bundle/morris.css">
       <link rel="stylesheet" href="/beans/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />
       <link rel="stylesheet" href="/beans/assets/vendor/multi-select-min/css/bootstrap-select-min.css"/>
       <link rel="stylesheet" href="/beans/assets/vendor/DataTables-cloud/datatables.css"/>
@@ -190,12 +192,12 @@
                   <div class="row">
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                           <div class="page-header">
-                              <h2 class="pageheader-title">Order List</h2>
+                              <h2 class="pageheader-title">Demand</h2>
                               <div class="page-breadcrumb">
                                   <nav aria-label="breadcrumb">
                                       <ol class="breadcrumb">
                                           <li class="breadcrumb-item"><a href="/beans/index.php" class="breadcrumb-link">LocalFood</a></li>
-                                          <li class="breadcrumb-item active" aria-current="page">Order List</li>
+                                          <li class="breadcrumb-item active" aria-current="page">Demand</li>
                                       </ol>
                                   </nav>
                               </div>
@@ -212,13 +214,9 @@
                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header d-flex">
-                              <h2 class="card-header-title">Order List Table</h2>
+                              <h2 class="card-header-title">Demand Table</h2>
                               <button id='csv-download' class="btn btn-rounded btn-secondary ml-3 w-2">CSV</button>
                               <span class="ml-auto w-auto">
-                                <label class="ml-auto w-auto" for="start-picker" style="color:white;">시작일</label>
-                                <input id="start-picker" class="ml-2 w-auto btn-primary" type="date" name="sdate" value="" style="height:37px;">
-                                <label class="ml-2 w-auto" for="end-picker" style="color:white;">종료일</label>
-                                <input id="end-picker" class="ml-2 w-auto btn-primary" type="date" name="edate" value="" style="height:37px;">
                                 <select id="comp-picker" class="custom-select btn-primary ml-2 w-auto">
                                   <option value="ALL">전체</option>
                                   <option value="A01">당진</option>
@@ -236,12 +234,16 @@
                                   <option value="A13">부여</option>
                                   <option value="A14">금산</option>
                                 </select>
-                                <select id="item-picker" class="custom-select btn-primary ml-2 w-auto">
-                                  <option value="ALL">전체</option>
-                                  <option value="B01" selected='selected'>농산물</option>
-                                  <option value="B02">수산물</option>
-                                  <option value="B03">축산물</option>
-                                  <option value="B04">가공식품</option>
+                                <select id="dema-picker" class="custom-select btn-primary ml-2 w-auto">
+                                  <option value="ALL" selected='selected'>전체</option>
+                                  <option value="B01" >센터</option>
+                                  <option value="B02">학교</option>
+                                </select>
+                                <select id="supp-picker" class="custom-select btn-primary ml-2 w-auto">
+                                  <option value="ALL" selected='selected'>전체</option>
+                                  <option value="C01" >센터수요</option>
+                                  <option value="C02">학교급식</option>
+                                  <option value="C03">공공급식</option>
                                 </select>
                                 <button id='order-update' class="btn btn-rounded btn-secondary ml-2 w-2" onclick="setTableData();">UPDATE</button>
                             </span>
@@ -252,16 +254,15 @@
                                       <thead>
                                           <tr>
                                             <th class="border-0 text-center">센터명</th>
-                                            <th class="border-0 text-center">대분류</th>
-                                            <th class="border-0 text-center">중분류</th>
-                                            <th class="border-0 text-center">소분류</th>
-                                            <th class="border-0 text-center">견적일</th>
-                                            <th class="border-0 text-center">상품명</th>
-                                            <th class="border-0 text-center">규격</th>
-                                            <th class="border-0 text-center">공급처</th>
-                                            <th class="border-0 text-center">수량</th>
-                                            <th class="border-0 text-center">빈도수</th>
-                                            <th class="border-0 text-center">금액</th>
+                                            <th class="border-0 text-center">수요형태</th>
+                                            <th class="border-0 text-center">공급형태</th>
+                                            <th class="border-0 text-center">거래처구분</th>
+                                            <th class="border-0 text-center">거래처명</th>
+                                            <th class="border-0 text-center">사업자번호</th>
+                                            <th class="border-0 text-center">주소</th>
+                                            <th class="border-0 text-center">홈페이지</th>
+                                            <th class="border-0 text-center">전화번호</th>
+
                                           </tr>
                                       </thead>
                                     </table>
@@ -277,62 +278,77 @@
                   <!-- simple calendar -->
                   <!-- ============================================================== -->
                   <div class="row">
-                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="float-right">
-                                  <select id="suppliers-count-picker" class="custom-select btn-primary" onchange="gridCenterChart();">
-                                    <option value="10" selected="selected">Top 10</option>
-                                    <option value="20">Top 20</option>
-                                    <!-- <option value="30">Top 30</option> -->
-                                  </select>
-                               </div>
-                              <h3 class="card-header-title mb-0">Supplier's Ordered Counts</h3>
+                              <h3 class="card-header-title mb-0">Demand Type Count</h3>
                             </div>
                             <div class="card-body">
-                                <canvas id="center-chart" width="220" height="120"></canvas>
+                              <div id="dema-chart" style="height: 230px;"></div>
+                            </div>
+                            <div class="card-footer p-0 bg-white d-flex">
+                              <div class="card-footer-item card-footer-item-bordered w-50">
+                                <h2 id="sData" class="mb-0"></h2>
+                                <p>학교</p>
+                              </div>
+                              <div class="card-footer-item card-footer-item-bordered">
+                                <h2 id='cData' class="mb-0"></h2>
+                                <p>센터</p>
+                              </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="float-right">
-                                  <select id="items-count-picker" class="custom-select btn-primary" onchange="gridItemChart();">
-                                    <option value="10" selected="selected">Top 10</option>
-                                    <option value="20">Top 20</option>
-                                    <!-- <option value="30">Top 30</option> -->
-                                  </select>
-                               </div>
-                              <h3 class="card-header-title mb-0">Ordered Items Each Supplier</h3>
+                              <h3 class="card-header-title mb-0">Supply Type Count</h3>
                             </div>
                             <div class="card-body">
-                                <canvas id="item-chart" width="220" height="120"></canvas>
+                              <div id="supp-chart" style="height: 230px;"></div>
+                            </div>
+                            <div class="card-footer p-0 bg-white d-flex">
+                              <div class="card-footer-item card-footer-item-bordered w-34">
+                                <h2 id="scMeal" class="mb-0"></h2>
+                                <p>공공급식</p>
+                              </div>
+                              <div class="card-footer-item card-footer-item-bordered w-34">
+                                <h2 id="gvMeal" class="mb-0"></h2>
+                                <p>학교급식</p>
+                              </div>
+                              <div class="card-footer-item card-footer-item-bordered w-34">
+                                <h2 id="cnMeal" class="mb-0"></h2>
+                                <p>센터</p>
+                              </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-12 col-md-6 col-sm-12 col-12">
-                        <!-- ============================================================== -->
-                        <!-- top perfomimg  -->
-                        <!-- ============================================================== -->
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h3 class="card-header-title card-header">Category Counts</h3>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                  <table id='category-data' class="stripe row-border order-column" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                          <th class="border-0 text-center">중분류</th>
-                                          <th class="border-0 text-center">Counts</th>
-                                        </tr>
-                                    </thead>
-                                  </table>
-                                </div>
+                            <div class="card-header">
+                              <h3 class="card-header-title mb-0">Customer Type Count</h3>
+                            </div>
+                            <div class="card-body">
+                              <div id="cust-chart" style="height: 230px;"></div>
+                            </div>
+                            <div class="card-footer p-0 bg-white d-flex">
+                              <div class="card-footer-item card-footer-item-bordered w-25">
+                                <h2 id="scCust" class="mb-0"></h2>
+                                <p>학교</p>
+                              </div>
+                              <div class="card-footer-item card-footer-item-bordered w-25">
+                                <h2 id="knCust" class="mb-0"></h2>
+                                <p>유치원</p>
+                              </div>
+                              <div class="card-footer-item card-footer-item-bordered w-25">
+                                <h2 id="ccCust" class="mb-0"></h2>
+                                <p>어린이집</p>
+                              </div>
+                              <div class="card-footer-item card-footer-item-bordered w-25">
+                                <h2 id="etCust" class="mb-0"></h2>
+                                <p>기타</p>
+                              </div>
                             </div>
                         </div>
-                        <!-- ============================================================== -->
-                        <!-- end top perfomimg  -->
-                        <!-- ============================================================== -->
                     </div>
                   </div>
             </div>
@@ -371,12 +387,15 @@
       <script src="/beans/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
       <script src='/beans/assets/vendor/full-calendar/js/moment.min.js'></script>
       <script src="/beans/assets/vendor/DataTables-cloud/datatables.js"></script>
-      <!-- chartjs -->
-      <script src="/beans/assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
-      <script src="/beans/assets/vendor/charts/charts-bundle/chartjs.js"></script>
-      <script src="/beans/assets/libs/js/orderlist/get-orderlist.js"></script>
-      <script src="/beans/assets/libs/js/orderlist/get-center-chart.js"></script>
-      <script src="/beans/assets/libs/js/orderlist/get-item-chart.js"></script>
+      <!-- morris-chart js -->
+      <script src="/beans/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+      <script src="/beans/assets/vendor/charts/morris-bundle/morris.js"></script>
+      <script src="/beans/assets/vendor/charts/morris-bundle/morrisjs.html"></script>
+
+      <script src="/beans/assets/libs/js/demand/get-demand.js"></script>
+      <script src="/beans/assets/libs/js/demand/get-dema-chart.js"></script>
+      <script src="/beans/assets/libs/js/demand/get-supp-chart.js"></script>
+      <script src="/beans/assets/libs/js/demand/get-cust-chart.js"></script>
       <script src="/beans/assets/libs/js/main-js.js"></script>
   </body>
 

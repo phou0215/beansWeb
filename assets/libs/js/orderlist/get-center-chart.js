@@ -19,7 +19,7 @@ function gridCenterChart(){
       window.chart_center.destroy();
     }
 
-    i = 0;
+    var i = 0;
     var backgrounds = new Array();
     while(i < count){
       backgrounds.push(colors[i]);
@@ -38,6 +38,8 @@ function gridCenterChart(){
         }]
       },
       options: {
+        // responsive: true,
+        // maintainAspectRatio: false,
         legend: {
           display: true,
           position:"bottom",

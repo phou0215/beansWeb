@@ -1,9 +1,8 @@
 var ele_table = $('#table-data');
-var ele_category = $('#category-data');
-var ele_sDate = $('#start-picker');
-var ele_eDate = $('#end-picker');
 var ele_comp = $('#comp-picker');
-var ele_item = $('#item-picker');
+var ele_dema = $('#dema-picker');
+var ele_supp = $('#supp-picker');
+
 // var data_table = null;
 var jsonData = null;
 
@@ -12,10 +11,10 @@ $(function(){
   $(document).ready(function() {
 
       //sDate and eDate initialize to today date
-      var now_time = new Date();
-      var current_date = moment(now_time).format('YYYY-MM-DD');
-      ele_sDate.val(current_date);
-      ele_eDate.val(current_date);
+      // var now_time = new Date();
+      // var current_date = moment(now_time).format('YYYY-MM-DD');
+      // ele_sDate.val(current_date);
+      // ele_eDate.val(current_date);
       // CSV Download Click Event Listener
       $('#csv-download').click(function(){
         var proceed = confirm("다운로드를 진행하시겠습니까?");
@@ -32,11 +31,11 @@ $(function(){
       //get order list chung nam do localfood api
       $.ajax({
           //CORS XSS 도메인 크로스 요청 금지 회피를 위해 직접 호출 대신 php backend server에서 forwarding
-          url:"/beans/phpdata/localfood/orderlist/get-orderlist.php",
+          url:"/beans/phpdata/localfood/demand/get-demand.php",
           type:"get",
           dataType:"json",
           async: true,
-          data:{sDate:changeDateFormat(ele_sDate.val()), eDate:changeDateFormat(ele_eDate.val()), comp:ele_comp.val(), itemcls:ele_item.val()},
+          data:{comp:ele_comp.val(), dema:ele_dema.val(), supp:ele_supp.val()},
           // headers: {
           //   "accept":"application/json",
           //   "Access-Control-Allow-Origin":"*",
@@ -53,36 +52,26 @@ $(function(){
               data:jsonData.tables,
               columns:[
                 {data:"COMP_NM"},
-                {data:"ITEMCLS1_NM"},
-                {data:"ITEMCLS2_NM"},
-                {data:"ITEMCLS3_NM"},
+                {data:"DEMA_TYPE"},
+                {data:"CUST_KIND_NM"},
+                {data:"SUPPLY_TYPE_NM"},
+                {data:"CUST_NM"},
+                {data:"BIZ_NO"},
+                {data:"ADDR"},
                 {
-                  data:"EST_DATE",
+                  data:"HOME_PAGE",
                   render:function(data, type, full, meta){
-                      return moment(data).format('YYYY-MM-DD');
-                  }
-                },
-                {data:"ITEM_NM"},
-                {data:"SPEC"},
-                {data:"PU_CUST_NM"},
-                {
-                  data:"QTY",
-                  render:function(data, type, full, meta){
-                    return String(data)+' '+full.UNIT_NM;
-                  }
-                },
-                {
-                  data:"FREQ_CNT",
-                  render:function(data, type, full, meta){
-                    return String(data)+' 회';
+                      if(data != "정보없음"){
+                        return "<a href="+data+"><i class='fas fa-home'></i>홈페이지 이동</a>"
+                      }else{
+                        return data;
+                      }
                   }
                 },
                 {
-                  data:"TOT_AMT",
+                  data:"TEL_NO",
                   render:function(data, type, full, meta){
-                    var num = parseInt(data);
-                    var price = withComma(num);
-                    return String(price)+' 원';
+                    return changeTelNum(data);
                   }
                 }
               ],
@@ -91,50 +80,22 @@ $(function(){
               scrollCollapse: true,
               paging:         true,
               columnDefs: [
-                  { width: '7%', targets: 0 },
-                  { width: '7%', targets: 1 },
-                  { width: '7%', targets: 2 },
-                  { width: '9%', targets: 3 },
-                  { width: '9%', targets: 4 },
-                  { width: '14%', targets: 5 },
-                  { width: '19%', targets: 6 },
-                  { width: '9%', targets: 7 },
-                  { width: '7%', targets: 8 },
-                  { width: '5%', targets: 9 },
-                  { width: '7%', targets: 10 },
+                  { width: '8%', targets: 0 },
+                  { width: '8%', targets: 1 },
+                  { width: '8%', targets: 2 },
+                  { width: '8%', targets: 3 },
+                  { width: '15%', targets: 4 },
+                  { width: '12%', targets: 5 },
+                  { width: '18%', targets: 6 },
+                  { width: '10%', targets: 7 },
+                  { width: '13%', targets: 8 }
               ],
               fixedColumns: true,
               pageLength: 25,
             });
-            ele_category.DataTable({
-              data:jsonData.categories,
-              // 표시 건수기능 숨기기
-              lengthChange: false,
-              // 검색 기능 숨기기
-              searching: false,
-              // 정렬 기능 숨기기
-              ordering: true,
-              // 정보 표시 숨기기
-              info: true,
-              // 페이징 기능 숨기기
-              paging: true,
-              columns:[
-                {data:"class"},
-                {data:"count"},
-              ],
-              scrollY: "250px",
-              // scrollX: true,
-              scrollCollapse: true,
-              paging:         true,
-              columnDefs: [
-                  { width: '50%', targets: 0 },
-                  { width: '50%', targets: 1 },
-              ],
-              fixedColumns: true,
-              pageLength: 8,
-            });
-            gridCenterChart();
-            gridItemChart();
+            gridDemaChart();
+            gridSuppChart();
+            gridCustChart();
 
           },
           error: function (request, status, error){
@@ -150,11 +111,11 @@ function setTableData(){
   //get order list chung nam do localfood api
   $.ajax({
       //CORS XSS 도메인 크로스 요청 금지 회피를 위해 직접 호출 대신 php backend server에서 forwarding
-      url:"/beans/phpdata/localfood/orderlist/get-orderlist.php",
+      url:"/beans/phpdata/localfood/demand/get-demand.php",
       type:"get",
       dataType:"json",
       async: true,
-      data:{sDate:changeDateFormat(ele_sDate.val()), eDate:changeDateFormat(ele_eDate.val()), comp:ele_comp.val(), itemcls:ele_item.val()},
+      data:{comp:ele_comp.val(), dema:ele_dema.val(), supp:ele_supp.val()},
       // headers: {
       //   "accept":"application/json",
       //   "Access-Control-Allow-Origin":"*",
@@ -164,99 +125,58 @@ function setTableData(){
         jsonData = data;
       },
       beforeSend:function(jqXHR, settings){
-        console.log(settings.url);
+        // console.log(settings.url);
       },
       complete:function(){
-        //table
-        // table data relaod
         ele_table.DataTable().clear().destroy();
-        ele_category.DataTable().clear().destroy();
         ele_table.DataTable({
           data:jsonData.tables,
           columns:[
             {data:"COMP_NM"},
-            {data:"ITEMCLS1_NM"},
-            {data:"ITEMCLS2_NM"},
-            {data:"ITEMCLS3_NM"},
+            {data:"DEMA_TYPE"},
+            {data:"CUST_KIND_NM"},
+            {data:"SUPPLY_TYPE_NM"},
+            {data:"CUST_NM"},
+            {data:"BIZ_NO"},
+            {data:"ADDR"},
             {
-              data:"EST_DATE",
+              data:"HOME_PAGE",
               render:function(data, type, full, meta){
-                  return moment(data).format('YYYY-MM-DD');
-              }
-            },
-            {data:"ITEM_NM"},
-            {data:"SPEC"},
-            {data:"PU_CUST_NM"},
-            {
-              data:"QTY",
-              render:function(data, type, full, meta){
-                return String(data)+' '+full.UNIT_NM;
-              }
-            },
-            {
-              data:"FREQ_CNT",
-              render:function(data, type, full, meta){
-                return String(data)+' 회';
+                  if(data != "정보없음"){
+                    return "<a href="+data+" target='_blank'><i class='fas fa-home'></i>&nbsp&nbsp홈페이지</a>"
+                  }else{
+                    return data;
+                  }
               }
             },
             {
-              data:"TOT_AMT",
+              data:"TEL_NO",
               render:function(data, type, full, meta){
-                var num = parseInt(data);
-                var price = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                return String(price)+' 원';
+                return changeTelNum(data);
               }
             }
           ],
-          scrollY: "450px",
+          scrollY: "350px",
           // scrollX: true,
           scrollCollapse: true,
           paging:         true,
           columnDefs: [
-              { width: '7%', targets: 0 },
-              { width: '7%', targets: 1 },
-              { width: '7%', targets: 2 },
-              { width: '9%', targets: 3 },
-              { width: '9%', targets: 4 },
-              { width: '14%', targets: 5 },
-              { width: '19%', targets: 6 },
-              { width: '9%', targets: 7 },
-              { width: '7%', targets: 8 },
-              { width: '5%', targets: 9 },
-              { width: '7%', targets: 10 },
+              { width: '8%', targets: 0 },
+              { width: '8%', targets: 1 },
+              { width: '8%', targets: 2 },
+              { width: '8%', targets: 3 },
+              { width: '15%', targets: 4 },
+              { width: '12%', targets: 5 },
+              { width: '18%', targets: 6 },
+              { width: '10%', targets: 7 },
+              { width: '13%', targets: 8 }
           ],
           fixedColumns: true,
           pageLength: 25,
         });
-        ele_category.DataTable({
-          data:jsonData.categories,
-          // 표시 건수기능 숨기기
-          lengthChange: false,
-          // 검색 기능 숨기기
-          searching: false,
-          // 정렬 기능 숨기기
-          ordering: true,
-          // 정보 표시 숨기기
-          info: true,
-          // 페이징 기능 숨기기
-          paging: true,
-          columns:[
-            {data:"class"},
-            {data:"count"},
-          ],
-          scrollY: "250px",
-          // scrollX: true,
-          scrollCollapse: true,
-          paging:         true,
-          columnDefs: [
-              { width: '50%', targets: 0 },
-              { width: '50%', targets: 1 },
-          ],
-          fixedColumns: true,
-          pageLength: 8,
-        });
-        gridCenterChart();
-        gridItemChart();
+        gridDemaChart();
+        gridSuppChart();
+        gridCustChart();
       },
       error: function (request, status, error){
       console.log('code: '+request.status+"\n"+'message: '+request.responseText+"\n"+'error: '+error);
@@ -282,7 +202,7 @@ function JSONToCSVConvertor(ShowLabel=true) {
     //Set Report title in first row or line
     var now_time = new Date();
     var current_date = moment(now_time).format('YYYY-MM-DD HH mm ss');
-    CSV += 'OrderList Report('+current_date+')\r\n\n';
+    CSV += 'Demand Report('+current_date+')\r\n\n';
 
     //This condition will generate the Label/Header
     if (ShowLabel) {
@@ -313,7 +233,7 @@ function JSONToCSVConvertor(ShowLabel=true) {
         return;
     }
     //Generate a file name
-    var fileName = 'OrderList Report('+current_date+')';
+    var fileName = 'Demand Report('+current_date+')';
     //this will remove the blank-spaces from the title and replace it with an underscore
     // fileName += ReportTitle.replace(/ /g,"_");
 
@@ -337,4 +257,35 @@ function JSONToCSVConvertor(ShowLabel=true) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+function changeTelNum(text, type=1){
+
+  var return_data = "";
+  if(text){
+    if(text.length == 11){
+      if(type == 0){
+        return_data = text.replace(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
+      }else{
+        return_data = text.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+    }else if(text.length == 8){
+      return_data = text.replace(/(\d{4})(\d{4})/, '$1-$2');
+    }else{
+      if(text.indexOf('02') == 0){
+        if(type == 0){
+          return_data = text.replace(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
+        }else{
+          return_data = text.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
+        }
+      }else{
+        if(type==0){
+          return_data = text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
+        }else{
+          return_data = text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+        }
+      }
+    }
+  }
+  return return_data;
 }

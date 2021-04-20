@@ -157,7 +157,7 @@
                                             <a class="nav-link" href="/beans/localfood/orderlist.php">Order List</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/beans/localfood/demander.php">Demander</a>
+                                            <a class="nav-link" href="/beans/localfood/Demand.php">Demand</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/beans/localfood/supplier.php">Supplier</a>

@@ -70,19 +70,17 @@
         $supplier = $result[$i]['PU_CUST_NM'];
         $item = $result[$i]['ITEMCLS3_NM'];
         $category = $result[$i]['ITEMCLS2_NM'];
-
-        $filter_supplier = preg_replace($regular,"",str_replace("\\\\\\","",$supplier));
+        //substr item special character
         $filter_item =  preg_replace($regular,"",str_replace("\\\\\\","",$item));
-        $filter_category =  preg_replace($regular,"",str_replace("\\\\\\","",$category));
 
-        if($filter_supplier){
-          array_push($temp_suppliers, trim($filter_supplier));
+        if($supplier){
+          array_push($temp_suppliers, trim($supplier));
         }
         if($filter_item){
           array_push($temp_items, trim($filter_item));
         }
-        if($filter_category){
-          array_push($temp_categories, trim($filter_category));
+        if($category){
+          array_push($temp_categories, trim($category));
         }
         $i++;
       }
