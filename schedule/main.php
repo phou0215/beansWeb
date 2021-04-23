@@ -128,7 +128,7 @@
                                             <a class="nav-link" href="/beans/weather/today.php">Today</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/beans/weather/history.php">History</a>
+                                            <a class="nav-link" href="/beans/weather/forecast.php">Forecast</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -158,9 +158,6 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/beans/localfood/supplier.php">Supplier</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/beans/localfood/iteminfo.php">Item Info</a>
                                         </li>
                                     </ul>
                                 </div>

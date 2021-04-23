@@ -9,11 +9,6 @@
     try{
 
       $result = null;
-      $index_centers = null;
-      $index_items = null;
-      $values_centers = null;
-      $values_items = null;
-      $values_category = null;
       $datas = array();
       $demand_type = array(
         "B01" => "센터",

@@ -43,7 +43,7 @@ function gridCenterChart(){
         legend: {
           display: true,
           position:"bottom",
-          align: "start",
+          align: "end",
           labels:{
             fontColor:"rgb(255,255,255)",
           }

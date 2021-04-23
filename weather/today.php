@@ -1,27 +1,14 @@
 <?php
     session_start();
-    if(!$_SESSION){
+    if (!$_SESSION) {
         session_start();
-        if(isset($_SESSION['is_login'])!= true){
-          echo "<script>
+        if (isset($_SESSION['is_login'])!= true) {
+            echo "<script>
                   alert('접속을 위해 로그인이 필요합니다.');
                   location.href='/beans/account/signin.php'
-                </script>";}}
-
-      require_once($_SERVER['DOCUMENT_ROOT']."/config/config.php");
-      $conn = mysqli_connect($config['host'],$config['user'],$config['password']);
-      mysqli_select_db($conn, $config['database']);
-
-      // 최신 저장된 데이터 날짜 가져오기
-      $weather_recent = mysqli_query($conn, "SELECT BASE_DATE, BASE_TIME FROM weather ORDER BY UPLOAD_TIME DESC LIMIT 1");
-      $row_weather = mysqli_fetch_assoc($weather_recent);
-      $forecast_recent = mysqli_query($conn, "SELECT BASE_DATE, BASE_TIME FROM forecast ORDER BY UPLOAD_TIME DESC LIMIT 1");
-      $row_forecast = mysqli_fetch_assoc($forecast_recent);
-      $weather_base_date = $row_weather['BASE_DATE'];
-      $weather_base_time = $row_weather['BASE_TIME'];
-      $forecast_base_date = $row_forecast['BASE_DATE'];
-      $forecast_base_time = $row_forecast['BASE_TIME'];
-      mysqli_close($conn);
+                </script>";
+        }
+    }
  ?>
 <!doctype html>
 <html lang="en">
@@ -72,8 +59,8 @@
                                             <a href="/beans/localfood/orderlist.php" class="connection-item"><img src="/beans/assets/images/localfood.png" alt=""> <span>LocalFood</span></a>
                                         </div>
                                         <?php
-                                          if($_SESSION['adminAuth'] == 1){
-                                            echo '
+                                          if ($_SESSION['adminAuth'] == 1) {
+                                              echo '
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                                 <a href="/beans/admin/accounts.php" class="connection-item"><img src="/beans/assets/images/admin.png" alt="" ><span>Admin</span></a>
                                             </div>';
@@ -91,7 +78,11 @@
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name"><?php echo $_SESSION['name'];?> </h5>
-                                    <span class="status"></span><span class="ml-2"><?php if($_SESSION['adminAuth'] == 1){echo "Available  (관리자)";}else{echo "Available  (일반)";}?></span>
+                                    <span class="status"></span><span class="ml-2"><?php if ($_SESSION['adminAuth'] == 1) {
+                                            echo "Available  (관리자)";
+                                        } else {
+                                            echo "Available  (일반)";
+                                        }?></span>
                                 </div>
                                 <a class="dropdown-item" href="/beans/admin/profile.php"><i class="fas fa-user mr-2"></i>profile</a>
                                 <a class="dropdown-item" href="/beans/account/logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
@@ -131,7 +122,7 @@
                                             <a class="nav-link" href="/beans/weather/today.php">Today</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/beans/weather/history.php">History</a>
+                                            <a class="nav-link" href="/beans/weather/forecast.php">Forecast</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -162,15 +153,12 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/beans/localfood/supplier.php">Supplier</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/beans/localfood/iteminfo.php">Item Info</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </li>
                             <?php
-                              if($_SESSION['adminAuth'] == 1){
-                                    echo '
+                              if ($_SESSION['adminAuth'] == 1) {
+                                  echo '
                                     <li class="nav-item ">
                                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="far fa-file-alt"></i>Admin</a>
                                         <div id="submenu-5" class="collapse submenu" style="">
@@ -182,7 +170,7 @@
                                         </div>
                                     </li>
                                     ';
-                                }
+                              }
                             ?>
                             <li class="nav-item">
                             </li>
@@ -228,43 +216,12 @@
                         <div class="card">
                           <div class="card-header d-flex">
                             <h2 class="card-header-title">Weather</h2>
-                            <!-- <select id="selectState" class="custom-select w-auto" style='margin-left:5px;'>
-                              <option value="1" selected='selected'></option>
-                              <option value="2">평일평균</option>
-                              <option value="3">3주평균</option>
-                            </select> -->
-                            <!-- <button type="button" class="btn btn-success" onclick="category_update();" style=" height:39px; width:100px; margin-left:5px;">OK</button> -->
                           </div>
                           <div class="card-body">
                             <div class="row">
                               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                      <!-- 날씨 아이콘 -->
-                                      <div class="float-left icon-circle-medium icon-box-lg bg-info-light mt-1">
-                                        <i class="fa fa-eye fa-fw fa-sm text-info"></i>
-                                      </div>
-                                      <!-- 지역 정보 -->
-                                      <div class="d-inline-block">
-                                        <h2 class="text-muted">충청남도 예산군 덕산면</h2>
-                                        <h2 class="mb-0">2021-02-25 16:00(sample)</h2>
-                                        <h2 class="mb-0">
-                                      </div>
-                                      <!-- 해당 날씨 정보 -->
-                                      <div class=" d-inline-block float-right">
-                                        <h2 class="text-muted">충청남도 예산군 덕산면</h2>
-                                        <h2 class="mb-0">2021-02-25 16:00(sample)</h2>
-                                        <h2 class="mb-0">
-                                      </div>
-                                    </div>
-                                </div>
                               </div>
-                              <!-- 일기 예보 온도 변화 -->
-                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
                             </div>
-                          </div>
-                          <div class="card-footer text-center">
-                            <a href="/beans/weather/main.php" class="card-link">View Details</a>
                           </div>
                         </div>
                     </div>
@@ -277,24 +234,6 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                          <div class="card-header d-flex">
-                            <h2 class="card-header-title">Schedule</h2>
-                            <select id="selectNet3" class="custom-select ml-auto w-auto">
-                              <option value="5G" selected='selected'>5G</option>
-                              <option value="LTE">LTE</option>
-                            </select>
-                            <select id="selectAvg3" class="custom-select w-auto" style='margin-left:5px;'>
-                              <option value="1" selected='selected'>전주</option>
-                              <option value="2">평일평균</option>
-                              <option value="3">3주평균</option>
-                            </select>
-                            <button id='sum_update' type="button" class="btn btn-info" onclick="category_update();" style=" height:39px; width:100px; margin-left:5px;">OK</button>
-                          </div>
-                            <div class="card-body">
-                                <div id='calendar1'></div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->

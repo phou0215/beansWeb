@@ -109,7 +109,7 @@ $(function(){
               var fsct_value = fcst_time.substr(0, fcst_time.length - 3);
               $('#forecast-base-'+i.toString()).text(fsct_value);
               //온도
-              $('#forecast-t1h-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i class="wi wi-thermometer" style=font-size:22px;></i></span>&nbsp'+data.t3h+'<span style="color:rgba(117,163,102,0.8);"><i class="wi wi-celsius" style=font-size:27px;></i></span>');
+              $('#forecast-t1h-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i class="wi wi-thermometer" style=font-size:22px;></i></span>&nbsp&nbsp&nbsp'+data.t3h+'℃');
               //풍향
               // $('#forecast-wsd-icon-'+i.toString()).attr('class', vec_deretion[data.vec]);
               $('#forecast-wsd-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i id="forecast-wsd-icon-0" class="'+vec_deretion[data.vec]+'" style=font-size:25px;></i></span>&nbsp'+data.vec+' '+data.wsd+' m/s');

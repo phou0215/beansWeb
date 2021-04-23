@@ -1,15 +1,17 @@
 <?php
     session_start();
-    if(!$_SESSION){
+    if (!$_SESSION) {
         session_start();
-        if(isset($_SESSION['is_login'])!= true){
-          echo "<script>
+        if (isset($_SESSION['is_login'])!= true) {
+            echo "<script>
                   alert('접속을 위해 로그인이 필요합니다.');
                   location.href='/beans/account/signin.php'
-                </script>";}}
+                </script>";
+        }
+    }
 
       require_once($_SERVER['DOCUMENT_ROOT']."/config/config.php");
-      $conn = mysqli_connect($config['host'],$config['user'],$config['password']);
+      $conn = mysqli_connect($config['host'], $config['user'], $config['password']);
       mysqli_select_db($conn, $config['database']);
 
       // 최신 저장된 데이터 날짜 가져오기
@@ -70,8 +72,8 @@
                                               <a href="/beans/localfood/orderlist.php" class="connection-item"><img src="/beans/assets/images/localfood.png" alt=""> <span>LocalFood</span></a>
                                           </div>
                                           <?php
-                                            if($_SESSION['adminAuth'] == 1){
-                                              echo '
+                                            if ($_SESSION['adminAuth'] == 1) {
+                                                echo '
                                               <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                                   <a href="/beans/admin/accounts.php" class="connection-item"><img src="/beans/assets/images/admin.png" alt="" ><span>Admin</span></a>
                                               </div>';
@@ -89,7 +91,11 @@
                               <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                   <div class="nav-user-info">
                                       <h5 class="mb-0 text-white nav-user-name"><?php echo $_SESSION['name'];?></h5>
-                                      <span class="status"></span><span class="ml-2"><?php if($_SESSION['adminAuth'] == 1){echo "Available  (관리자)";}else{echo "Available  (일반)";}?></span>
+                                      <span class="status"></span><span class="ml-2"><?php if ($_SESSION['adminAuth'] == 1) {
+                                              echo "Available  (관리자)";
+                                          } else {
+                                              echo "Available  (일반)";
+                                          }?></span>
                                   </div>
                                   <a class="dropdown-item" href="/beans/admin/profile.php"><i class="fas fa-user mr-2"></i>profile</a>
                                   <a class="dropdown-item" href="/beans/account/logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
@@ -129,7 +135,7 @@
                                               <a class="nav-link" href="/beans/weather/today.php">Today</a>
                                           </li>
                                           <li class="nav-item">
-                                              <a class="nav-link" href="/beans/weather/history.php">History</a>
+                                              <a class="nav-link" href="/beans/weather/forecast.php">Forecast</a>
                                           </li>
                                       </ul>
                                   </div>
@@ -160,15 +166,12 @@
                                           <li class="nav-item">
                                               <a class="nav-link" href="/beans/localfood/supplier.php">Supplier</a>
                                           </li>
-                                          <li class="nav-item">
-                                              <a class="nav-link" href="/beans/localfood/iteminfo.php">Item Info</a>
-                                          </li>
                                       </ul>
                                   </div>
                               </li>
                               <?php
-                                if($_SESSION['adminAuth'] == 1){
-                                      echo '
+                                if ($_SESSION['adminAuth'] == 1) {
+                                    echo '
                                       <li class="nav-item ">
                                           <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="far fa-file-alt"></i>Admin</a>
                                           <div id="submenu-5" class="collapse submenu" style="">
@@ -180,7 +183,7 @@
                                           </div>
                                       </li>
                                       ';
-                                  }
+                                }
                               ?>
                               <li class="nav-item">
                               </li>
@@ -229,13 +232,13 @@
                               <span class="ml-auto w-auto">
                                 <select id="local-picker" class="custom-select btn-primary ml-auto w-auto" data-live-search="true" data-size="10" onchange="changeLocal();">
                                   <?php
-                                    while ($row_locals = mysqli_fetch_assoc($weather_locals)){
-                                      $local_name = $row_locals['LOCAL'];
-                                      if ($local_name == '서울'){
-                                        echo "<option value=".$local_name." selected='selected'>".$local_name."</option>";
-                                        continue;
-                                      }
-                                      echo "<option value=".$local_name.">".$local_name."</option>";
+                                    while ($row_locals = mysqli_fetch_assoc($weather_locals)) {
+                                        $local_name = $row_locals['LOCAL'];
+                                        if ($local_name == '서울') {
+                                            echo "<option value=".$local_name." selected='selected'>".$local_name."</option>";
+                                            continue;
+                                        }
+                                        echo "<option value=".$local_name.">".$local_name."</option>";
                                     }
                                   ?>
                                 </select>
@@ -368,7 +371,7 @@
                                                 </span>
                                               </h3>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                               <h3 id="forecast-reh-0" class="text-muted">
                                                 <span style="color:rgba(117,163,102,0.8);">
                                                   <i class="wi wi-humidity" style=font-size:23px;></i>
@@ -381,7 +384,7 @@
                                                   <i class="wi wi-barometer" style=font-size:23px;></i>
                                                 </span>
                                               </h3>
-                                            </li> -->
+                                            </li>
                                           </ul>
                                         </div>
                                       </div>
@@ -412,7 +415,7 @@
                                                 </span>
                                               </h3>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                               <h3 id="forecast-reh-1" class="text-muted">
                                                 <span style="color:rgba(117,163,102,0.8);">
                                                   <i class="wi wi-humidity" style=font-size:23px;></i>
@@ -425,7 +428,7 @@
                                                   <i class="wi wi-barometer" style=font-size:23px;></i>
                                                 </span>
                                               </h3>
-                                            </li> -->
+                                            </li>
                                           </ul>
                                         </div>
                                       </div>
@@ -456,7 +459,7 @@
                                                 </span>
                                               </h3>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                               <h3 id="forecast-reh-2" class="text-muted">
                                                 <span style="color:rgba(117,163,102,0.8);">
                                                   <i class="wi wi-humidity" style=font-size:23px;></i>
@@ -469,7 +472,7 @@
                                                   <i class="wi wi-barometer" style=font-size:23px;></i>
                                                 </span>
                                               </h3>
-                                            </li> -->
+                                            </li>
                                           </ul>
                                         </div>
                                       </div>
@@ -500,7 +503,7 @@
                                                 </span>
                                               </h3>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                               <h3 id="forecast-reh-3" class="text-muted">
                                                 <span style="color:rgba(117,163,102,0.8);">
                                                   <i class="wi wi-humidity" style=font-size:23px;></i>
@@ -513,7 +516,7 @@
                                                   <i class="wi wi-barometer" style=font-size:23px;></i>
                                                 </span>
                                               </h3>
-                                            </li> -->
+                                            </li>
                                           </ul>
                                         </div>
                                       </div>
@@ -544,7 +547,7 @@
                                                 </span>
                                               </h3>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                               <h3 id="forecast-reh-4" class="text-muted">
                                                 <span style="color:rgba(117,163,102,0.8);">
                                                   <i class="wi wi-humidity" style=font-size:23px;></i>
@@ -557,7 +560,7 @@
                                                   <i class="wi wi-barometer" style=font-size:23px;></i>
                                                 </span>
                                               </h3>
-                                            </li> -->
+                                            </li>
                                           </ul>
                                         </div>
                                       </div>
@@ -588,7 +591,7 @@
                                                 </span>
                                               </h3>
                                             </li>
-                                            <!-- <li>
+                                            <li>
                                               <h3 id="forecast-reh-5" class="text-muted">
                                                 <span style="color:rgba(117,163,102,0.8);">
                                                   <i class="wi wi-humidity" style=font-size:23px;></i>
@@ -601,7 +604,7 @@
                                                   <i class="wi wi-barometer" style=font-size:23px;></i>
                                                 </span>
                                               </h3>
-                                            </li> -->
+                                            </li>
                                           </ul>
                                         </div>
                                       </div>

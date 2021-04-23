@@ -118,7 +118,7 @@
                                               <a class="nav-link" href="/beans/weather/today.php">Today</a>
                                           </li>
                                           <li class="nav-item">
-                                              <a class="nav-link" href="/beans/weather/history.php">History</a>
+                                              <a class="nav-link" href="/beans/weather/forecast.php">Forecast</a>
                                           </li>
                                       </ul>
                                   </div>
@@ -148,9 +148,6 @@
                                           </li>
                                           <li class="nav-item">
                                               <a class="nav-link" href="/beans/localfood/supplier.php">Supplier</a>
-                                          </li>
-                                          <li class="nav-item">
-                                              <a class="nav-link" href="/beans/localfood/iteminfo.php">Item Info</a>
                                           </li>
                                       </ul>
                                   </div>
@@ -288,11 +285,11 @@
                             </div>
                             <div class="card-footer p-0 bg-white d-flex">
                               <div class="card-footer-item card-footer-item-bordered w-50">
-                                <h2 id="sData" class="mb-0"></h2>
+                                <h3 id="sData" class="mb-0"></h3>
                                 <p>학교</p>
                               </div>
                               <div class="card-footer-item card-footer-item-bordered">
-                                <h2 id='cData' class="mb-0"></h2>
+                                <h3 id='cData' class="mb-0"></h3>
                                 <p>센터</p>
                               </div>
                             </div>
@@ -308,15 +305,15 @@
                             </div>
                             <div class="card-footer p-0 bg-white d-flex">
                               <div class="card-footer-item card-footer-item-bordered w-34">
-                                <h2 id="scMeal" class="mb-0"></h2>
+                                <h3 id="scMeal" class="mb-0"></h3>
                                 <p>공공급식</p>
                               </div>
                               <div class="card-footer-item card-footer-item-bordered w-34">
-                                <h2 id="gvMeal" class="mb-0"></h2>
+                                <h3 id="gvMeal" class="mb-0"></h3>
                                 <p>학교급식</p>
                               </div>
                               <div class="card-footer-item card-footer-item-bordered w-34">
-                                <h2 id="cnMeal" class="mb-0"></h2>
+                                <h3 id="cnMeal" class="mb-0"></h3>
                                 <p>센터</p>
                               </div>
                             </div>
@@ -332,19 +329,19 @@
                             </div>
                             <div class="card-footer p-0 bg-white d-flex">
                               <div class="card-footer-item card-footer-item-bordered w-25">
-                                <h2 id="scCust" class="mb-0"></h2>
+                                <h3 id="scCust" class="mb-0"></h3>
                                 <p>학교</p>
                               </div>
                               <div class="card-footer-item card-footer-item-bordered w-25">
-                                <h2 id="knCust" class="mb-0"></h2>
+                                <h3 id="knCust" class="mb-0"></h3>
                                 <p>유치원</p>
                               </div>
                               <div class="card-footer-item card-footer-item-bordered w-25">
-                                <h2 id="ccCust" class="mb-0"></h2>
+                                <h3 id="ccCust" class="mb-0"></h3>
                                 <p>어린이집</p>
                               </div>
                               <div class="card-footer-item card-footer-item-bordered w-25">
-                                <h2 id="etCust" class="mb-0"></h2>
+                                <h3 id="etCust" class="mb-0"></h3>
                                 <p>기타</p>
                               </div>
                             </div>

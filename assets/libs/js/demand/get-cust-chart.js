@@ -49,7 +49,7 @@ function gridCustChart(){
    ele_scCust.text(jsonData.values_custom[0]);
    ele_knCust.text(jsonData.values_custom[1]);
    ele_ccCust.text(jsonData.values_custom[2]);
-   ele_etCust.text(jsonData.values_custom[2]);
+   ele_etCust.text(jsonData.values_custom[3]);
 }
 
 function getPercent(num, totNum){

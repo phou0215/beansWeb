@@ -9,7 +9,6 @@
     try{
 
       $result = null;
-      $datas = array();
       // select all schedule
       $flag_comp = isset($_GET['comp']);
       $url = "http://localfood.chungnam.go.kr/localfood/openApi03.do?";
@@ -23,11 +22,10 @@
         $comp = $_GET['comp'];
         $url = $url.'&comp='.$comp;
       }
-
       //curl request init
       $ch = curl_init(); //curl 로딩
       curl_setopt($ch, CURLOPT_URL, $url); //curl에 url 셋팅
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 이 셋팅은 1로 고정하는 것이 정신건강에 좋음
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 1 고정
 
       //set headers(Server포워드 대상 서버에서 연결을 거부할 수 있음으로 SET Header를 진행.)
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -40,9 +38,30 @@
       $result = curl_exec($ch); // curl 실행 및 결과값 저장
       $result = json_decode($result, true);
       $result = $result['list'];
-      // send json format
 
-      $jsonTable = json_encode($result, JSON_UNESCAPED_UNICODE);
+      // get supplier and items static Counts
+      $i = 0;
+      while($i < count($result)){
+
+        //null check
+        $supp_tel = $result[$i]['TEL_NO'];
+        $supp_address = $result[$i]['ADDR'];
+
+        if(!$supp_tel || trim($supp_tel) == ""){
+          $result[$i]['TEL_NO'] = '정보없음';
+        }
+        if(!$supp_address || trim($supp_address) == ""){
+          $result[$i]['ADDR'] = '정보없음';
+        }
+        $i++;
+      }
+
+      // send json format
+      $return_data = array(
+        'tables' => $result,
+      );
+
+      $jsonTable = json_encode($return_data, JSON_UNESCAPED_UNICODE);
       header('Content-Type: application/json');
       echo $jsonTable;
 
