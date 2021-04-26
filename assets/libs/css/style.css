@@ -3637,24 +3637,25 @@ btn-link
 .tab-regular .nav.nav-tabs .nav-link {
     display: block;
     padding: 17px 49px;
-    color: #71748d;
-    background-color: #dddde8;
+    color: white;
+    background-color: rgba(56,126,66,0.5);
     margin-right: 5px;
-    border-color: #dddde8;
+    border-color: rgba(56,126,66,0.5);
 }
 
 .tab-regular .nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {}
+.nav-tabs .nav-link:hover {
+}
 
 .tab-regular .nav-tabs .nav-link.active {
-    background-color: #fff;
-    border-color: #e6e6f2 #e6e6f2 #fff;
-    color: #5969ff;
+    background-color: rgba(139,110,74,0.8);
+    border-color: rgba(139,110,74,0.8);
+    color: white;
 }
 
 .tab-regular .tab-content {
-    background-color: #fff;
-    padding: 30px;
+    background-color: rgba(2,22,1,0.8);
+    padding: 5px;
     border: 1px solid #e6e6f2;
     border-radius: 4px;
     border-top-left-radius: 0px
@@ -3738,8 +3739,11 @@ btn-link
 
 .tab-outline .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
-    border-color: transparent;
-    color: #5969ff !important;
+    /* border-color: transparent; */
+    /* color: #5969ff !important; */
+    /* color:rgba(139,110,74,0.8) !important; */
+    transform: scale(1.05);
+    transition: .3s;
 }
 
 .tab-outline .tab-content {

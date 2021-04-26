@@ -224,46 +224,534 @@
                       <div class="tab-regular">
                           <ul class="nav nav-tabs " id="myTab" role="tablist">
                               <li class="nav-item">
-                                  <a class="nav-link" id="sk-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">서울/경기</a>
+                                  <a class="nav-link" id="sk-tab" data-toggle="tab" href="#sk-region" role="tab" aria-controls="sk-region" aria-selected="false">서울/경기</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="kg-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">강원도</a>
+                                  <a class="nav-link" id="kg-tab" data-toggle="tab" href="#kg-region" role="tab" aria-controls="kg-region" aria-selected="false">강원도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link active" id="ch-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">충청남도/충청북도</a>
+                                  <a class="nav-link active" id="ch-tab" data-toggle="tab" href="#ch-region" role="tab" aria-controls="ch-region" aria-selected="true">충청남도/충청북도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="jl-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">전라남도/전라북도</a>
+                                  <a class="nav-link" id="jl-tab" data-toggle="tab" href="#jl-region" role="tab" aria-controls="jl-region" aria-selected="false">전라남도/전라북도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="ks-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">경상남도/경상북도</a>
+                                  <a class="nav-link" id="ks-tab" data-toggle="tab" href="#ks-region" role="tab" aria-controls="ks-region" aria-selected="false">경상남도/경상북도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="je-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">제주특별자치도</a>
+                                  <a class="nav-link" id="je-tab" data-toggle="tab" href="#je-region" role="tab" aria-controls="je-region" aria-selected="false">제주특별자치도</a>
                               </li>
                           </ul>
                           <div class="tab-content" id="fcTab">
-                              <div class="tab-pane fade show active" id="sk-region" role="tabpanel" aria-labelledby="sk-tab">
-
+                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="sk-tab">
+                                <!-- ============================================================== -->
+                                <!-- 서울 경기 기상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">기상전망</h3>
+                                        <span id="sk-base-time" class="ml-auto w-auto">
+                                        </span>
+                                      </div>
+                                      <div id="sk-wfSv" class="card-body">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 서울 경기 육상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">육상날씨</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='sk-land-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="sk-land-0" class="border-0 text-center">지역</th>
+                                                    <th id="sk-land-1" class="border-0 text-center">29일(오전)</th>
+                                                    <th id="sk-land-2" class="border-0 text-center">29일(오후)</th>
+                                                    <th id="sk-land-3" class="border-0 text-center">30일(오전)</th>
+                                                    <th id="sk-land-4" class="border-0 text-center">30일(오후)</th>
+                                                    <th id="sk-land-5" class="border-0 text-center">01일(오전)</th>
+                                                    <th id="sk-land-6" class="border-0 text-center">01일(오후)</th>
+                                                    <th id="sk-land-7" class="border-0 text-center">02일(오전)</th>
+                                                    <th id="sk-land-8" class="border-0 text-center">02일(오후)</th>
+                                                    <th id="sk-land-9" class="border-0 text-center">03일(오전)</th>
+                                                    <th id="sk-land-10" class="border-0 text-center">03일(오후)</th>
+                                                    <th id="sk-land-11" class="border-0 text-center">04일</th>
+                                                    <th id="sk-land-12" class="border-0 text-center">05일</th>
+                                                    <th id="sk-land-13" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 서울 경기 최고/최저 기온 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">최저/최고(℃)</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='sk-temp-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="sk-temp-0" class="border-0 text-center">지역</th>
+                                                    <th id="sk-temp-1" class="border-0 text-center">29일</th>
+                                                    <th id="sk-temp-2" class="border-0 text-center">30일</th>
+                                                    <th id="sk-temp-3" class="border-0 text-center">01일</th>
+                                                    <th id="sk-temp-4" class="border-0 text-center">02일</th>
+                                                    <th id="sk-temp-5" class="border-0 text-center">03일</th>
+                                                    <th id="sk-temp-6" class="border-0 text-center">04일</th>
+                                                    <th id="sk-temp-7" class="border-0 text-center">05일</th>
+                                                    <th id="sk-temp-8" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="kg-tab">
-
+                              <div class="tab-pane fade" id="kg-region" role="tabpanel" aria-labelledby="kg-tab">
+                                <!-- ============================================================== -->
+                                <!-- 강원 기상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">기상전망</h3>
+                                        <span id="kg-base-time" class="ml-auto w-auto">
+                                        </span>
+                                      </div>
+                                      <div id="kg-wfSv" class="card-body">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 강원 육상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">육상날씨</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='kg-land-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="kg-land-0" class="border-0 text-center">지역</th>
+                                                    <th id="kg-land-1" class="border-0 text-center">29일(오전)</th>
+                                                    <th id="kg-land-2" class="border-0 text-center">29일(오후)</th>
+                                                    <th id="kg-land-3" class="border-0 text-center">30일(오전)</th>
+                                                    <th id="kg-land-4" class="border-0 text-center">30일(오후)</th>
+                                                    <th id="kg-land-5" class="border-0 text-center">01일(오전)</th>
+                                                    <th id="kg-land-6" class="border-0 text-center">01일(오후)</th>
+                                                    <th id="kg-land-7" class="border-0 text-center">02일(오전)</th>
+                                                    <th id="kg-land-8" class="border-0 text-center">02일(오후)</th>
+                                                    <th id="kg-land-9" class="border-0 text-center">03일(오전)</th>
+                                                    <th id="kg-land-10" class="border-0 text-center">03일(오후)</th>
+                                                    <th id="kg-land-11" class="border-0 text-center">04일</th>
+                                                    <th id="kg-land-12" class="border-0 text-center">05일</th>
+                                                    <th id="kg-land-13" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 강원 최고/최저 기온 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">최저/최고(℃)</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='kg-temp-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="kg-temp-0" class="border-0 text-center">지역</th>
+                                                    <th id="kg-temp-1" class="border-0 text-center">29일</th>
+                                                    <th id="kg-temp-2" class="border-0 text-center">30일</th>
+                                                    <th id="kg-temp-3" class="border-0 text-center">01일</th>
+                                                    <th id="kg-temp-4" class="border-0 text-center">02일</th>
+                                                    <th id="kg-temp-5" class="border-0 text-center">03일</th>
+                                                    <th id="kg-temp-6" class="border-0 text-center">04일</th>
+                                                    <th id="kg-temp-7" class="border-0 text-center">05일</th>
+                                                    <th id="kg-temp-8" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="ch-tab">
-
                               </div>
-                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="ch-tab">
-
+                              <div class="tab-pane fade show active" id="ch-region" role="tabpanel" aria-labelledby="ch-tab">
+                                <!-- ============================================================== -->
+                                <!-- 충청남도/북도 기상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">기상전망</h3>
+                                        <span id="ch-base-time" class="ml-auto w-auto">
+                                        </span>
+                                      </div>
+                                      <div id="ch-wfSv" class="card-body">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 충청남도/북도 육상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">육상날씨</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='ch-land-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="ch-land-0" class="border-0 text-center">지역</th>
+                                                    <th id="ch-land-1" class="border-0 text-center">29일(오전)</th>
+                                                    <th id="ch-land-2" class="border-0 text-center">29일(오후)</th>
+                                                    <th id="ch-land-3" class="border-0 text-center">30일(오전)</th>
+                                                    <th id="ch-land-4" class="border-0 text-center">30일(오후)</th>
+                                                    <th id="ch-land-5" class="border-0 text-center">01일(오전)</th>
+                                                    <th id="ch-land-6" class="border-0 text-center">01일(오후)</th>
+                                                    <th id="ch-land-7" class="border-0 text-center">02일(오전)</th>
+                                                    <th id="ch-land-8" class="border-0 text-center">02일(오후)</th>
+                                                    <th id="ch-land-9" class="border-0 text-center">03일(오전)</th>
+                                                    <th id="ch-land-10" class="border-0 text-center">03일(오후)</th>
+                                                    <th id="ch-land-11" class="border-0 text-center">04일</th>
+                                                    <th id="ch-land-12" class="border-0 text-center">05일</th>
+                                                    <th id="ch-land-13" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 충청남도/북도 최고/최저 기온 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">최저/최고(℃)</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='ch-temp-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="ch-temp-0" class="border-0 text-center">지역</th>
+                                                    <th id="ch-temp-1" class="border-0 text-center">29일</th>
+                                                    <th id="ch-temp-2" class="border-0 text-center">30일</th>
+                                                    <th id="ch-temp-3" class="border-0 text-center">01일</th>
+                                                    <th id="ch-temp-4" class="border-0 text-center">02일</th>
+                                                    <th id="ch-temp-5" class="border-0 text-center">03일</th>
+                                                    <th id="ch-temp-6" class="border-0 text-center">04일</th>
+                                                    <th id="ch-temp-7" class="border-0 text-center">05일</th>
+                                                    <th id="ch-temp-8" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="ch-tab">
-
                               </div>
-                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="ch-tab">
-
+                              <div class="tab-pane fade" id="jl-region" role="tabpanel" aria-labelledby="jl-tab">
+                                <!-- ============================================================== -->
+                                <!-- 전라남도/북도 기상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">기상전망</h3>
+                                        <span id="jl-base-time" class="ml-auto w-auto">
+                                        </span>
+                                      </div>
+                                      <div id="jl-wfSv" class="card-body">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 전라남도/북도 육상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">육상날씨</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='jl-land-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="jl-land-0" class="border-0 text-center">지역</th>
+                                                    <th id="jl-land-1" class="border-0 text-center">29일(오전)</th>
+                                                    <th id="jl-land-2" class="border-0 text-center">29일(오후)</th>
+                                                    <th id="jl-land-3" class="border-0 text-center">30일(오전)</th>
+                                                    <th id="jl-land-4" class="border-0 text-center">30일(오후)</th>
+                                                    <th id="jl-land-5" class="border-0 text-center">01일(오전)</th>
+                                                    <th id="jl-land-6" class="border-0 text-center">01일(오후)</th>
+                                                    <th id="jl-land-7" class="border-0 text-center">02일(오전)</th>
+                                                    <th id="jl-land-8" class="border-0 text-center">02일(오후)</th>
+                                                    <th id="jl-land-9" class="border-0 text-center">03일(오전)</th>
+                                                    <th id="jl-land-10" class="border-0 text-center">03일(오후)</th>
+                                                    <th id="jl-land-11" class="border-0 text-center">04일</th>
+                                                    <th id="jl-land-12" class="border-0 text-center">05일</th>
+                                                    <th id="jl-land-13" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 전라남도/북도 최고/최저 기온 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">최저/최고(℃)</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='jl-temp-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="jl-temp-0" class="border-0 text-center">지역</th>
+                                                    <th id="jl-temp-1" class="border-0 text-center">29일</th>
+                                                    <th id="jl-temp-2" class="border-0 text-center">30일</th>
+                                                    <th id="jl-temp-3" class="border-0 text-center">01일</th>
+                                                    <th id="jl-temp-4" class="border-0 text-center">02일</th>
+                                                    <th id="jl-temp-5" class="border-0 text-center">03일</th>
+                                                    <th id="jl-temp-6" class="border-0 text-center">04일</th>
+                                                    <th id="jl-temp-7" class="border-0 text-center">05일</th>
+                                                    <th id="jl-temp-8" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="tab-pane fade" id="sk-region" role="tabpanel" aria-labelledby="ch-tab">
-
                               </div>
+                              <div class="tab-pane fade" id="ks-region" role="tabpanel" aria-labelledby="ks-tab">
+                                <!-- ============================================================== -->
+                                <!-- 경상남도/북도 기상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">기상전망</h3>
+                                        <span id="ks-base-time" class="ml-auto w-auto">
+                                        </span>
+                                      </div>
+                                      <div id="ks-wfSv" class="card-body">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 경상남도/북도  육상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">육상날씨</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='ks-land-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="ks-land-0" class="border-0 text-center">지역</th>
+                                                    <th id="ks-land-1" class="border-0 text-center">29일(오전)</th>
+                                                    <th id="ks-land-2" class="border-0 text-center">29일(오후)</th>
+                                                    <th id="ks-land-3" class="border-0 text-center">30일(오전)</th>
+                                                    <th id="ks-land-4" class="border-0 text-center">30일(오후)</th>
+                                                    <th id="ks-land-5" class="border-0 text-center">01일(오전)</th>
+                                                    <th id="ks-land-6" class="border-0 text-center">01일(오후)</th>
+                                                    <th id="ks-land-7" class="border-0 text-center">02일(오전)</th>
+                                                    <th id="ks-land-8" class="border-0 text-center">02일(오후)</th>
+                                                    <th id="ks-land-9" class="border-0 text-center">03일(오전)</th>
+                                                    <th id="ks-land-10" class="border-0 text-center">03일(오후)</th>
+                                                    <th id="ks-land-11" class="border-0 text-center">04일</th>
+                                                    <th id="ks-land-12" class="border-0 text-center">05일</th>
+                                                    <th id="ks-land-13" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 경상남도/북도  최고/최저 기온 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">최저/최고(℃)</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='ks-temp-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="ks-temp-0" class="border-0 text-center">지역</th>
+                                                    <th id="ks-temp-1" class="border-0 text-center">29일</th>
+                                                    <th id="ks-temp-2" class="border-0 text-center">30일</th>
+                                                    <th id="ks-temp-3" class="border-0 text-center">01일</th>
+                                                    <th id="ks-temp-4" class="border-0 text-center">02일</th>
+                                                    <th id="ks-temp-5" class="border-0 text-center">03일</th>
+                                                    <th id="ks-temp-6" class="border-0 text-center">04일</th>
+                                                    <th id="ks-temp-7" class="border-0 text-center">05일</th>
+                                                    <th id="ks-temp-8" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                              <div class="tab-pane fade" id="je-region" role="tabpanel" aria-labelledby="je-tab">
+                                <!-- ============================================================== -->
+                                <!-- 제주 기상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">기상전망</h3>
+                                        <span id="je-base-time" class="ml-auto w-auto">
+                                        </span>
+                                      </div>
+                                      <div id="je-wfSv" class="card-body">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 제주 육상 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">육상날씨</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='je-land-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="je-land-0" class="border-0 text-center">지역</th>
+                                                    <th id="je-land-1" class="border-0 text-center">29일(오전)</th>
+                                                    <th id="je-land-2" class="border-0 text-center">29일(오후)</th>
+                                                    <th id="je-land-3" class="border-0 text-center">30일(오전)</th>
+                                                    <th id="je-land-4" class="border-0 text-center">30일(오후)</th>
+                                                    <th id="je-land-5" class="border-0 text-center">01일(오전)</th>
+                                                    <th id="je-land-6" class="border-0 text-center">01일(오후)</th>
+                                                    <th id="je-land-7" class="border-0 text-center">02일(오전)</th>
+                                                    <th id="je-land-8" class="border-0 text-center">02일(오후)</th>
+                                                    <th id="je-land-9" class="border-0 text-center">03일(오전)</th>
+                                                    <th id="je-land-10" class="border-0 text-center">03일(오후)</th>
+                                                    <th id="je-land-11" class="border-0 text-center">04일</th>
+                                                    <th id="je-land-12" class="border-0 text-center">05일</th>
+                                                    <th id="je-land-13" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- 제주 최고/최저 기온 전망 -->
+                                <!-- ============================================================== -->
+                                <div class="row">
+                                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12">
+                                    <div class="card">
+                                      <div class="card-header d-flex">
+                                        <h3 class="card-header-title">최저/최고(℃)</h3>
+                                      </div>
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id='je-temp-table' class="stripe row-border order-column" style="width:100%">
+                                              <thead>
+                                                  <tr>
+                                                    <th id="je-temp-0" class="border-0 text-center">지역</th>
+                                                    <th id="je-temp-1" class="border-0 text-center">29일</th>
+                                                    <th id="je-temp-2" class="border-0 text-center">30일</th>
+                                                    <th id="je-temp-3" class="border-0 text-center">01일</th>
+                                                    <th id="je-temp-4" class="border-0 text-center">02일</th>
+                                                    <th id="je-temp-5" class="border-0 text-center">03일</th>
+                                                    <th id="je-temp-6" class="border-0 text-center">04일</th>
+                                                    <th id="je-temp-7" class="border-0 text-center">05일</th>
+                                                    <th id="je-temp-8" class="border-0 text-center">06일</th>
+                                                  </tr>
+                                              </thead>
+                                            </table>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                       </div>
                     </div>

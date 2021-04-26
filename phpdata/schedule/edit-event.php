@@ -4,7 +4,7 @@
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $conn = mysqli_connect($config['host'],$config['user'],$config['password']);
     mysqli_select_db($conn, $config['database']);
-
+	   date_default_timezone_set("Asia/Seoul");
     //find out request method ==> $_SERVER['REQUEST_METHOD']
     parse_str(file_get_contents("php://input"), $_PUT);
 
