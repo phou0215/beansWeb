@@ -47,10 +47,13 @@
          //제주/서귀포/성산/이어도/추자도/고산
          "je"=>["11G00201", "11G00401", "11G00101", "11G00601", "11G00800", "11G00501"]
        );
-       $rain_regular = "/rnSt[1-9][AP]?m?/";
-       $sky_regular = "/wf[1-9][AP]?m?/";
+       $rain_regular = "/rnSt[0-9]{1,2}[AP]?m?/";
+       $sky_regular = "/wf[0-9]{1,2}[AP]?m?/";
+       $min_regular = "/taMin[0-9]{1,2}$/";
+       $max_regular = "/taMax[0-9]{1,2}$/";
+
     try {
-        $location = "sk";
+        $location = "ch";
         $result_wfSv = array();
         $result_land = array();
         $result_temp = array();
@@ -83,7 +86,7 @@
         $i = 0;
         while($i < 8){
           $P_day = 3+$i;
-          $index_day = date('d', strtotime($base_time."+ ".$P_day."days"));
+          $index_day = date('m-d', strtotime($base_time."+ ".$P_day."days"));
 
           if(!in_array($i, [5,6,7])){
             array_push($index_land, $index_day."일(오전)");
@@ -141,7 +144,7 @@
         $i = 0;
         while($i < count($land[$location])){
 
-          $url = $wfSv_url.$land[$location][$i];
+          $url = $land_url.$land[$location][$i];
           $ch = curl_init(); //curl 로딩
           curl_setopt($ch, CURLOPT_URL, $url); //curl에 url 셋팅
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 이 셋팅은 1로 고정
@@ -158,27 +161,83 @@
           $response_code = $result['response']['header']['resultCode'];
 
           if ($response_code == '00'){
-            $result = $result['response']['body']['items']['item'];
+            $result = $result['response']['body']['items']['item'][0];
             array_shift($result);
+            $keys = array_keys($result);
+            $values = array_values($result);
             $rain = array();
             $sky = array();
             // item  rain and sky 자르기
-            $j =0
-            while($j < count($result)){
-              if(!in_array($i, [0,1,2,3,4,5,6,7,8,9,10,11,12])){
-                array_push($key,);
+            $j =0;
+            while($j < count($keys)){
+              if (preg_match($rain_regular, $keys[$j])){
+                array_push($rain, $values[$j]);
               }
+              if (preg_match($sky_regular, $keys[$j])){
+                array_push($sky, $values[$j]);
+              }
+              $j++;
             }
-
-            array_push($result_wfSv, $result);
+            array_push($result_land, array("rain"=> $rain, "sky" => $sky));
           }
           else{
-            array_push($result_wfSv, "No Data");
+            array_push($result_land, "No Data");
           }
           $i++;
         }
 
-        //list 값만 가져오기
+
+        //Temp data extracting
+        //curl request init
+        $i = 0;
+        while($i < count($temp[$location])){
+
+          $url = $temp_url.$temp[$location][$i];
+          $ch = curl_init(); //curl 로딩
+          curl_setopt($ch, CURLOPT_URL, $url); //curl에 url 셋팅
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // 이 셋팅은 1로 고정
+
+          //set headers(Server포워드 대상 서버에서 연결을 거부할 수 있음으로 SET Header를 진행.)
+          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+          curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+          // curl_setopt ($ch, CURLOPT_COOKIEJAR, $file);
+          curl_setopt($ch, CURLOPT_REFERER, 'http://www.google.com');
+          curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+          $result = curl_exec($ch); // curl 실행 및 결과값 저장
+
+          $result = json_decode($result, true);
+          $response_code = $result['response']['header']['resultCode'];
+
+          if ($response_code == '00'){
+            $result = $result['response']['body']['items']['item'][0];
+            array_shift($result);
+            $keys = array_keys($result);
+            $values = array_values($result);
+            $max = array();
+            $min = array();
+            // print_r($result);
+            // print_r($keys);
+            // print_r($values);
+            // item  rain and sky 자르기
+            $j =0;
+            while($j < count($keys)){
+              if (preg_match($max_regular, $keys[$j])){
+                array_push($max, $values[$j]);
+              }
+              if (preg_match($min_regular, $keys[$j])){
+                array_push($min, $values[$j]);
+              }
+              $j++;
+            }
+            array_push($result_temp, array("max"=> $max, "min" => $min));
+          }
+          else{
+            array_push($result_temp, "No Data");
+          }
+          $i++;
+        }
+
+        //assemble list data
         $return_data = array(
         'base_time' => date('Y-m-d H:i', strtotime($base_time)),
         'wfSv' => $result_wfSv,
@@ -187,7 +246,6 @@
         'index_land' => $index_land,
         'index_temp' => $index_temp,
         );
-
 
         $jsonTable = json_encode($return_data, JSON_UNESCAPED_UNICODE);
         header('Content-Type: application/json');

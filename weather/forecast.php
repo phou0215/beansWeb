@@ -24,6 +24,7 @@
     <link href="/beans/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" rel="stylesheet" >
     <link href='/beans/assets/vendor/full-calendar/css/fullcalendar.css' rel='stylesheet' />
     <link href='/beans/assets/vendor/full-calendar/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href="/beans/assets/vendor/DataTables-cloud/datatables.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -224,22 +225,22 @@
                       <div class="tab-regular">
                           <ul class="nav nav-tabs " id="myTab" role="tablist">
                               <li class="nav-item">
-                                  <a class="nav-link" id="sk-tab" data-toggle="tab" href="#sk-region" role="tab" aria-controls="sk-region" aria-selected="false">서울/경기</a>
+                                  <a class="nav-link" id="sk-tab" data-toggle="tab" href="#sk-region" role="tab" aria-controls="sk-region" aria-selected="false" loc="sk">서울/경기</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="kg-tab" data-toggle="tab" href="#kg-region" role="tab" aria-controls="kg-region" aria-selected="false">강원도</a>
+                                  <a class="nav-link" id="kg-tab" data-toggle="tab" href="#kg-region" role="tab" aria-controls="kg-region" aria-selected="false"loc="kg">강원도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link active" id="ch-tab" data-toggle="tab" href="#ch-region" role="tab" aria-controls="ch-region" aria-selected="true">충청남도/충청북도</a>
+                                  <a class="nav-link active" id="ch-tab" data-toggle="tab" href="#ch-region" role="tab" aria-controls="ch-region" aria-selected="true" loc="ch">충청남도/충청북도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="jl-tab" data-toggle="tab" href="#jl-region" role="tab" aria-controls="jl-region" aria-selected="false">전라남도/전라북도</a>
+                                  <a class="nav-link" id="jl-tab" data-toggle="tab" href="#jl-region" role="tab" aria-controls="jl-region" aria-selected="false" loc="jl">전라남도/전라북도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="ks-tab" data-toggle="tab" href="#ks-region" role="tab" aria-controls="ks-region" aria-selected="false">경상남도/경상북도</a>
+                                  <a class="nav-link" id="ks-tab" data-toggle="tab" href="#ks-region" role="tab" aria-controls="ks-region" aria-selected="false" loc="ks">경상남도/경상북도</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link" id="je-tab" data-toggle="tab" href="#je-region" role="tab" aria-controls="je-region" aria-selected="false">제주특별자치도</a>
+                                  <a class="nav-link" id="je-tab" data-toggle="tab" href="#je-region" role="tab" aria-controls="je-region" aria-selected="false" loc="je">제주특별자치도</a>
                               </li>
                           </ul>
                           <div class="tab-content" id="fcTab">
@@ -271,7 +272,7 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='sk-land-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='sk-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
                                                     <th id="sk-land-0" class="border-0 text-center">지역</th>
@@ -307,7 +308,7 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='sk-temp-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='sk-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
                                                     <th id="sk-temp-0" class="border-0 text-center">지역</th>
@@ -324,6 +325,7 @@
                                             </table>
                                         </div>
                                       </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -355,7 +357,7 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='kg-land-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='kg-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
                                                     <th id="kg-land-0" class="border-0 text-center">지역</th>
@@ -391,7 +393,7 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='kg-temp-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='kg-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
                                                     <th id="kg-temp-0" class="border-0 text-center">지역</th>
@@ -406,11 +408,11 @@
                                                   </tr>
                                               </thead>
                                             </table>
+                                          </div>
                                         </div>
                                       </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
                               </div>
                               <div class="tab-pane fade show active" id="ch-region" role="tabpanel" aria-labelledby="ch-tab">
                                 <!-- ============================================================== -->
@@ -491,11 +493,11 @@
                                                   </tr>
                                               </thead>
                                             </table>
+                                          </div>
                                         </div>
                                       </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
                               </div>
                               <div class="tab-pane fade" id="jl-region" role="tabpanel" aria-labelledby="jl-tab">
                                 <!-- ============================================================== -->
@@ -576,11 +578,11 @@
                                                   </tr>
                                               </thead>
                                             </table>
+                                          </div>
                                         </div>
                                       </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
                               </div>
                               <div class="tab-pane fade" id="ks-region" role="tabpanel" aria-labelledby="ks-tab">
                                 <!-- ============================================================== -->
@@ -661,12 +663,12 @@
                                                   </tr>
                                               </thead>
                                             </table>
+                                          </div>
                                         </div>
                                       </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              </div>
                               <div class="tab-pane fade" id="je-region" role="tabpanel" aria-labelledby="je-tab">
                                 <!-- ============================================================== -->
                                 <!-- 제주 기상 전망 -->
@@ -746,18 +748,18 @@
                                                   </tr>
                                               </thead>
                                             </table>
+                                          </div>
                                         </div>
                                       </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
                             </div>
                           </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  </div>
-                </div>
             </div>
           <!-- ============================================================== -->
           <!-- footer -->
@@ -786,6 +788,7 @@
     <!-- Optional JavaScript -->
     <script src="/beans/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="/beans/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/beans/assets/vendor/DataTables-cloud/datatables.js"></script>
     <script src="/beans/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src='/beans/assets/vendor/full-calendar/js/moment.min.js'></script>
     <script src="/beans/assets/libs/js/weather/get-middleforecast.js"></script>
