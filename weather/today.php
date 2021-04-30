@@ -9,6 +9,13 @@
                 </script>";
         }
     }
+    require_once($_SERVER['DOCUMENT_ROOT']."/config/config.php");
+    $conn = mysqli_connect($config['host'], $config['user'], $config['password']);
+    mysqli_select_db($conn, $config['database']);
+
+    // 최신 저장된 데이터 날짜 가져오기
+    $weather_locals = mysqli_query($conn, "SELECT LOCAL FROM locals WHERE FLAG=1 ORDER BY LOCAL ASC");
+    mysqli_close($conn);
  ?>
 <!doctype html>
 <html lang="en">
@@ -22,8 +29,8 @@
     <link href="/beans/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="/beans/assets/libs/css/style.css">
     <link rel="stylesheet" href="/beans/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <link href='/beans/assets/vendor/full-calendar/css/fullcalendar.css' rel='stylesheet' />
-    <link href='/beans/assets/vendor/full-calendar/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href="/beans/assets/vendor/fonts/weather-icons/css/weather-icons.css" rel="stylesheet" >
+    <link href="/beans/assets/vendor/fonts/weather-icons/css/weather-icons-wind.css" rel="stylesheet" >
 </head>
 
 <body>
@@ -134,9 +141,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/beans/schedule/main.php">Main</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link" href="/beans/schedule/edit.php">Edit Schedule</a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </li>
@@ -208,7 +215,6 @@
                 <!-- ============================================================== -->
                 <!-- end pageheader -->
                 <!-- ============================================================== -->
-                <!-- ============================================================== -->
                 <!-- simple weather -->
                 <!-- ============================================================== -->
                 <div class="row">
@@ -216,28 +222,398 @@
                         <div class="card">
                           <div class="card-header d-flex">
                             <h2 class="card-header-title">Weather</h2>
+                            <span class="ml-auto w-auto">
+                              <select id="local-picker" class="custom-select btn-primary ml-auto w-auto" data-live-search="true" data-size="10" onchange="changeLocal();">
+                                <?php
+                                  while ($row_locals = mysqli_fetch_assoc($weather_locals)) {
+                                      $local_name = $row_locals['LOCAL'];
+                                      if ($local_name == '서울') {
+                                          echo "<option value=".$local_name." selected='selected'>".$local_name."</option>";
+                                          continue;
+                                      }
+                                      echo "<option value=".$local_name.">".$local_name."</option>";
+                                  }
+                                ?>
+                              </select>
+                              <!-- <button id='sum_update' type="button" class="btn btn-success" onclick="category_update();" style=" height:39px; width:100px; margin-left:5px;">OK</button> -->
+                          </span>
                           </div>
                           <div class="card-body">
-                            <div class="row">
+                            <!-- 일기 예보 정보 카드-->
+                            <div id='weather-current-card' class="row" style='display:None;'>
                               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                  <!-- 날씨 아이콘 -->
+                                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="text-center" style="color:rgba(117,163,102,0.8);">
+                                      <i id="main-weather-icon" style="font-size:10rem;" ></i>
+                                    </div>
+                                  </div>
+                                  <!-- 지역 정보 -->
+                                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 col-12 local-area">
+                                    <div class="mt-2 mb-2">
+                                      <ul class="social-sales list-group list-group-flush local-area">
+                                        <li class="list-group-item social-sales-content local-area">
+                                          <div class='row'>
+                                            <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6'>
+                                                <h2 id="main-state" class="text-muted"></h2>
+                                                <h4 id="main-base" class="text-muted"></h4>
+                                            </div>
+                                            <div class='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6'>
+                                              <span class="social-sales-count ml-2">
+                                                <h4 id="main-rise" class="text-muted"></h4>
+                                                <h4 id="main-set" class="text-muted"></h4>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </li>
+                                        <li class="list-group-item social-sales-content local-area">
+                                          <span class="ml-1" style="color:rgba(117,163,102,0.8);">
+                                            <i class="wi wi-thermometer" style="font-size:28px;padding-top:5px;"></i>
+                                          </span>
+                                          <span class="social-sales-count mr-4">
+                                            <h3 id="main-t1h" class="text-muted" style=""></h3>
+                                          </span>
+                                        </li>
+                                        <li class="list-group-item social-sales-content local-area">
+                                          <span class="ml-1" style="color:rgba(117,163,102,0.8);">
+                                            <i id="main-wsd-icon" class="" style=font-size:32px;></i>
+                                          </span>
+                                          <span class="social-sales-count mr-4">
+                                            <h3 id="main-wsd" class="text-muted"></h3>
+                                          </span>
+                                        </li>
+                                        <li class="list-group-item social-sales-content local-area">
+                                          <span class="ml-1" style="color:rgba(117,163,102,0.8);">
+                                            <i class="wi wi-humidity" style=font-size:32px;></i>
+                                          </span>
+                                          <span class="social-sales-count mr-4">
+                                            <h3 id="main-reh" class="text-muted"></h3>
+                                          </span>
+                                        </li>
+                                        <li class="list-group-item social-sales-content local-area">
+                                          <span class= "ml-1" style="color:rgba(117,163,102,0.8);">
+                                            <i class="wi wi-showers" style=font-size:32px;></i>
+                                          </span>
+                                          <span class="social-sales-count mr-4">
+                                            <h3 id="main-rn1" class="text-muted"></h3>
+                                          </span>
+                                        </li>
+                                        <li class="list-group-item social-sales-content local-area">
+                                          <span class="m1-1" style="color:rgba(117,163,102,0.8);">
+                                            <i class="wi wi-lightning" style=font-size:32px;></i>
+                                          </span>
+                                          <span class="social-sales-count mr-4">
+                                            <h3 id="main-lgt" class="text-muted"></h3>
+                                          </span>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <!-- 그래프 구역-->
+                                  <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="card mt-1 mb-2">
+                                      <div class="card-header d-flex">
+                                        <div class="toolbar card-toolbar-tabs  ml-auto">
+                                          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                              <a class="nav-link active show" id="chart-t3h" onclick="gridGraph('t3h');" data-toggle="pill" href="#" role="tab" aria-controls="pills-t1h" aria-selected="false">TEMP</a>
+                                            </li>
+                                            <li class="nav-item">
+                                              <a class="nav-link" id="chart-reh" onclick="gridGraph('reh');" data-toggle="pill" href="#" role="tab" aria-controls="pills-reh" aria-selected="false">HUM</a>
+                                            </li>
+                                            <li class="nav-item">
+                                              <a class="nav-link" id="chart-pop" onclick="gridGraph('pop');" data-toggle="pill" href="#" role="tab" aria-controls="pills-pop" aria-selected="false">RAIN</a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                      <div class="card-body">
+                                        <canvas id="chartjs_line_weather" height="70"></canvas>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                </br>
+                                </br>
+                                <!-- 일기예보 구역 -->
+                                <div class='row'>
+                                  <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card forecast-card">
+                                      <div class="card-body forecast-card">
+                                        <ul>
+                                          <li class="top-weather text-center">
+                                            <span style="color:rgba(117,163,102,0.8);">
+                                              <i id="forecast-icon-0" class=""></i>
+                                            </span>
+                                          </li>
+                                          <li class="text-center">
+                                            <h3 id="forecast-base-0" class="text-muted"></h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-t1h-0" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-celsius" style=font-size:27px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-wsd-0" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i id="forecast-wsd-icon-0" class="" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-reh-0" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-humidity" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-pop-0" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-barometer" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card forecast-card">
+                                      <div class="card-body forecast-card">
+                                        <ul>
+                                          <li class="top-weather text-center">
+                                            <span style="color:rgba(117,163,102,0.8);">
+                                              <i id="forecast-icon-1" class=""></i>
+                                            </span>
+                                          </li>
+                                          <li class="text-center">
+                                            <h3 id="forecast-base-1" class="text-muted"></h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-t1h-1" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-celsius" style=font-size:27px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-wsd-1" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i id="forecast-wsd-icon-1" class="" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-reh-1" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-humidity" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-pop-1" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-barometer" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card forecast-card">
+                                      <div class="card-body forecast-card">
+                                        <ul>
+                                          <li class="top-weather text-center">
+                                            <span style="color:rgba(117,163,102,0.8);">
+                                              <i id="forecast-icon-2" class=""></i>
+                                            </span>
+                                          </li>
+                                          <li class="text-center">
+                                            <h3 id="forecast-base-2" class="text-muted"></h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-t1h-2" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-celsius" style=font-size:27px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-wsd-2" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i id="forecast-wsd-icon-2" class="" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-reh-2" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-humidity" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-pop-2" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-barometer" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card forecast-card">
+                                      <div class="card-body forecast-card">
+                                        <ul>
+                                          <li class="top-weather text-center">
+                                            <span style="color:rgba(117,163,102,0.8);">
+                                              <i id="forecast-icon-3" class=""></i>
+                                            </span>
+                                          </li>
+                                          <li class="text-center">
+                                            <h3 id="forecast-base-3" class="text-muted"></h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-t1h-3" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-celsius" style=font-size:27px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-wsd-3" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i id="forecast-wsd-icon-3" class="" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-reh-3" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-humidity" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-pop-3" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-barometer" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card forecast-card">
+                                      <div class="card-body forecast-card">
+                                        <ul>
+                                          <li class="top-weather text-center">
+                                            <span style="color:rgba(117,163,102,0.8);">
+                                              <i id="forecast-icon-4" class=""></i>
+                                            </span>
+                                          </li>
+                                          <li class="text-center">
+                                            <h3 id="forecast-base-4" class="text-muted"></h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-t1h-4" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-celsius" style=font-size:27px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-wsd-4" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i id="forecast-wsd-icon-4" class="" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-reh-4" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-humidity" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-pop-4" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-barometer" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-2 col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="card forecast-card">
+                                      <div class="card-body forecast-card">
+                                        <ul>
+                                          <li class="top-weather text-center">
+                                            <span style="color:rgba(117,163,102,0.8);">
+                                              <i id="forecast-icon-5" class=""></i>
+                                            </span>
+                                          </li>
+                                          <li class="text-center">
+                                            <h3 id="forecast-base-5" class="text-muted"></h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-t1h-5" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-celsius" style=font-size:27px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-wsd-5" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i id="forecast-wsd-icon-5" class="" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-reh-5" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-humidity" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                          <li>
+                                            <h3 id="forecast-pop-5" class="text-muted">
+                                              <span style="color:rgba(117,163,102,0.8);">
+                                                <i class="wi wi-barometer" style=font-size:23px;></i>
+                                              </span>
+                                            </h3>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
+                          <!-- <div class="card-footer text-center">
+                              <a href="/beans/weather/main.php" class="card-link">View Details</a>
+                          </div> -->
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- end simple weather -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- simple calendar -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- end simple calendar -->
                 <!-- ============================================================== -->
 
             </div>
@@ -269,12 +645,14 @@
     <!-- Optional JavaScript -->
     <script src="/beans/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="/beans/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/beans/assets/vendor/multi-select-min/js/bootstrap-select-min.js" type="text/javascript"></script>
     <script src="/beans/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="/beans/assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
+    <script src="/beans/assets/vendor/charts/charts-bundle/chartjs.js"></script>
     <script src='/beans/assets/vendor/full-calendar/js/moment.min.js'></script>
-    <script src='/beans/assets/vendor/full-calendar/js/fullcalendar.js'></script>
-    <script src='/beans/assets/vendor/full-calendar/js/jquery-ui.min.js'></script>
-    <script src='/beans/assets/vendor/full-calendar/js/calendar.js'></script>
     <script src="/beans/assets/libs/js/main-js.js"></script>
+    <script src="/beans/assets/libs/js/weather/get-shortcast.js"></script>
+    <script src="/beans/assets/libs/js/weather/get-forecast.js"></script>
 </body>
 
 </html>

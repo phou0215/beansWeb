@@ -140,9 +140,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/beans/schedule/main.php">Main</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link" href="/beans/schedule/edit.php">Edit Schedule</a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </li>
@@ -236,7 +236,7 @@
                     <!-- ============================================================== -->
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
                             <div class="card">
-                                <div class="card-body">
+                                <!-- <div class="card-body">
                                     <h3 class="font-16">Sorting By Part Type</h3>
                                     <select id="select_part" class="form-control btn-primary" style="color:white;">
                                         <option value="Tot" selected>전체</option>
@@ -255,7 +255,7 @@
                                         <option value="MR">MR</option>
                                         <option value="ER">ER</option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="card-body border-top">
                                     <h3 class="font-16">Schedule File Upload</h3>
                                     <!-- <input id="upload-schedule"  class="form-control" type="file" accept=".xls,.xlsx">

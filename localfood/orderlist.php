@@ -128,9 +128,9 @@
                                           <li class="nav-item">
                                               <a class="nav-link" href="/beans/schedule/main.php">Main</a>
                                           </li>
-                                          <li class="nav-item">
+                                          <!-- <li class="nav-item">
                                               <a class="nav-link" href="/beans/schedule/edit.php">Edit Schedule</a>
-                                          </li>
+                                          </li> -->
                                       </ul>
                                   </div>
                               </li>

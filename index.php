@@ -147,9 +147,9 @@
                                           <li class="nav-item">
                                               <a class="nav-link" href="/beans/schedule/main.php">Main</a>
                                           </li>
-                                          <li class="nav-item">
+                                          <!-- <li class="nav-item">
                                               <a class="nav-link" href="/beans/schedule/edit.php">Edit Schedule</a>
-                                          </li>
+                                          </li> -->
                                       </ul>
                                   </div>
                               </li>
@@ -251,13 +251,13 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                   <div class="row">
                                     <!-- 날씨 아이콘 -->
-                                    <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12 col-12">
                                       <div class="text-center" style="color:rgba(117,163,102,0.8);">
                                         <i id="main-weather-icon" style="font-size:10rem;" ></i>
                                       </div>
                                     </div>
                                     <!-- 지역 정보 -->
-                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 local-area">
+                                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 col-12 local-area">
                                       <div class="mt-2 mb-2">
                                         <ul class="social-sales list-group list-group-flush local-area">
                                           <li class="list-group-item social-sales-content local-area">
@@ -318,7 +318,7 @@
                                       </div>
                                     </div>
                                     <!-- 그래프 구역-->
-                                    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
                                       <div class="card mt-1 mb-2">
                                         <div class="card-header d-flex">
                                           <div class="toolbar card-toolbar-tabs  ml-auto">
