@@ -25,6 +25,8 @@
     <link href='/beans/assets/vendor/full-calendar/css/fullcalendar.css' rel='stylesheet' />
     <link href='/beans/assets/vendor/full-calendar/css/fullcalendar.print.css' rel='stylesheet' media='print' />
     <link href="/beans/assets/vendor/DataTables-cloud/datatables.css" rel="stylesheet" />
+    <link href="/beans/assets/vendor/fonts/weather-icons/css/weather-icons.css" rel="stylesheet" >
+    <link href="/beans/assets/vendor/fonts/weather-icons/css/weather-icons-wind.css" rel="stylesheet" >
 </head>
 
 <body>
@@ -275,20 +277,20 @@
                                             <table id='sk-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="sk-land-0" class="border-0 text-center">지역</th>
-                                                    <th id="sk-land-1" class="border-0 text-center">29일(오전)</th>
-                                                    <th id="sk-land-2" class="border-0 text-center">29일(오후)</th>
-                                                    <th id="sk-land-3" class="border-0 text-center">30일(오전)</th>
-                                                    <th id="sk-land-4" class="border-0 text-center">30일(오후)</th>
-                                                    <th id="sk-land-5" class="border-0 text-center">01일(오전)</th>
-                                                    <th id="sk-land-6" class="border-0 text-center">01일(오후)</th>
-                                                    <th id="sk-land-7" class="border-0 text-center">02일(오전)</th>
-                                                    <th id="sk-land-8" class="border-0 text-center">02일(오후)</th>
-                                                    <th id="sk-land-9" class="border-0 text-center">03일(오전)</th>
-                                                    <th id="sk-land-10" class="border-0 text-center">03일(오후)</th>
-                                                    <th id="sk-land-11" class="border-0 text-center">04일</th>
-                                                    <th id="sk-land-12" class="border-0 text-center">05일</th>
-                                                    <th id="sk-land-13" class="border-0 text-center">06일</th>
+                                                    <th id="sk-land-0" class="border-0 text-center"></th>
+                                                    <th id="sk-land-1" class="border-0 text-center"></th>
+                                                    <th id="sk-land-2" class="border-0 text-center"></th>
+                                                    <th id="sk-land-3" class="border-0 text-center"></th>
+                                                    <th id="sk-land-4" class="border-0 text-center"></th>
+                                                    <th id="sk-land-5" class="border-0 text-center"></th>
+                                                    <th id="sk-land-6" class="border-0 text-center"></th>
+                                                    <th id="sk-land-7" class="border-0 text-center"></th>
+                                                    <th id="sk-land-8" class="border-0 text-center"></th>
+                                                    <th id="sk-land-9" class="border-0 text-center"></th>
+                                                    <th id="sk-land-10" class="border-0 text-center"></th>
+                                                    <th id="sk-land-11" class="border-0 text-center"></th>
+                                                    <th id="sk-land-12" class="border-0 text-center"></th>
+                                                    <th id="sk-land-13" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -311,15 +313,15 @@
                                             <table id='sk-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="sk-temp-0" class="border-0 text-center">지역</th>
-                                                    <th id="sk-temp-1" class="border-0 text-center">29일</th>
-                                                    <th id="sk-temp-2" class="border-0 text-center">30일</th>
-                                                    <th id="sk-temp-3" class="border-0 text-center">01일</th>
-                                                    <th id="sk-temp-4" class="border-0 text-center">02일</th>
-                                                    <th id="sk-temp-5" class="border-0 text-center">03일</th>
-                                                    <th id="sk-temp-6" class="border-0 text-center">04일</th>
-                                                    <th id="sk-temp-7" class="border-0 text-center">05일</th>
-                                                    <th id="sk-temp-8" class="border-0 text-center">06일</th>
+                                                    <th id="sk-temp-0" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-1" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-2" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-3" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-4" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-5" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-6" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-7" class="border-0 text-center"></th>
+                                                    <th id="sk-temp-8" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -360,20 +362,20 @@
                                             <table id='kg-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="kg-land-0" class="border-0 text-center">지역</th>
-                                                    <th id="kg-land-1" class="border-0 text-center">29일(오전)</th>
-                                                    <th id="kg-land-2" class="border-0 text-center">29일(오후)</th>
-                                                    <th id="kg-land-3" class="border-0 text-center">30일(오전)</th>
-                                                    <th id="kg-land-4" class="border-0 text-center">30일(오후)</th>
-                                                    <th id="kg-land-5" class="border-0 text-center">01일(오전)</th>
-                                                    <th id="kg-land-6" class="border-0 text-center">01일(오후)</th>
-                                                    <th id="kg-land-7" class="border-0 text-center">02일(오전)</th>
-                                                    <th id="kg-land-8" class="border-0 text-center">02일(오후)</th>
-                                                    <th id="kg-land-9" class="border-0 text-center">03일(오전)</th>
-                                                    <th id="kg-land-10" class="border-0 text-center">03일(오후)</th>
-                                                    <th id="kg-land-11" class="border-0 text-center">04일</th>
-                                                    <th id="kg-land-12" class="border-0 text-center">05일</th>
-                                                    <th id="kg-land-13" class="border-0 text-center">06일</th>
+                                                    <th id="kg-land-0" class="border-0 text-center"></th>
+                                                    <th id="kg-land-1" class="border-0 text-center"></th>
+                                                    <th id="kg-land-2" class="border-0 text-center"></th>
+                                                    <th id="kg-land-3" class="border-0 text-center"></th>
+                                                    <th id="kg-land-4" class="border-0 text-center"></th>
+                                                    <th id="kg-land-5" class="border-0 text-center"></th>
+                                                    <th id="kg-land-6" class="border-0 text-center"></th>
+                                                    <th id="kg-land-7" class="border-0 text-center"></th>
+                                                    <th id="kg-land-8" class="border-0 text-center"></th>
+                                                    <th id="kg-land-9" class="border-0 text-center"></th>
+                                                    <th id="kg-land-10" class="border-0 text-center"></th>
+                                                    <th id="kg-land-11" class="border-0 text-center"></th>
+                                                    <th id="kg-land-12" class="border-0 text-center"></th>
+                                                    <th id="kg-land-13" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -396,15 +398,15 @@
                                             <table id='kg-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="kg-temp-0" class="border-0 text-center">지역</th>
-                                                    <th id="kg-temp-1" class="border-0 text-center">29일</th>
-                                                    <th id="kg-temp-2" class="border-0 text-center">30일</th>
-                                                    <th id="kg-temp-3" class="border-0 text-center">01일</th>
-                                                    <th id="kg-temp-4" class="border-0 text-center">02일</th>
-                                                    <th id="kg-temp-5" class="border-0 text-center">03일</th>
-                                                    <th id="kg-temp-6" class="border-0 text-center">04일</th>
-                                                    <th id="kg-temp-7" class="border-0 text-center">05일</th>
-                                                    <th id="kg-temp-8" class="border-0 text-center">06일</th>
+                                                    <th id="kg-temp-0" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-1" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-2" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-3" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-4" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-5" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-6" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-7" class="border-0 text-center"></th>
+                                                    <th id="kg-temp-8" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -442,23 +444,23 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='ch-land-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='ch-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="ch-land-0" class="border-0 text-center">지역</th>
-                                                    <th id="ch-land-1" class="border-0 text-center">29일(오전)</th>
-                                                    <th id="ch-land-2" class="border-0 text-center">29일(오후)</th>
-                                                    <th id="ch-land-3" class="border-0 text-center">30일(오전)</th>
-                                                    <th id="ch-land-4" class="border-0 text-center">30일(오후)</th>
-                                                    <th id="ch-land-5" class="border-0 text-center">01일(오전)</th>
-                                                    <th id="ch-land-6" class="border-0 text-center">01일(오후)</th>
-                                                    <th id="ch-land-7" class="border-0 text-center">02일(오전)</th>
-                                                    <th id="ch-land-8" class="border-0 text-center">02일(오후)</th>
-                                                    <th id="ch-land-9" class="border-0 text-center">03일(오전)</th>
-                                                    <th id="ch-land-10" class="border-0 text-center">03일(오후)</th>
-                                                    <th id="ch-land-11" class="border-0 text-center">04일</th>
-                                                    <th id="ch-land-12" class="border-0 text-center">05일</th>
-                                                    <th id="ch-land-13" class="border-0 text-center">06일</th>
+                                                    <th id="ch-land-0" class="border-0 text-center"></th>
+                                                    <th id="ch-land-1" class="border-0 text-center"></th>
+                                                    <th id="ch-land-2" class="border-0 text-center"></th>
+                                                    <th id="ch-land-3" class="border-0 text-center"></th>
+                                                    <th id="ch-land-4" class="border-0 text-center"></th>
+                                                    <th id="ch-land-5" class="border-0 text-center"></th>
+                                                    <th id="ch-land-6" class="border-0 text-center"></th>
+                                                    <th id="ch-land-7" class="border-0 text-center"></th>
+                                                    <th id="ch-land-8" class="border-0 text-center"></th>
+                                                    <th id="ch-land-9" class="border-0 text-center"></th>
+                                                    <th id="ch-land-10" class="border-0 text-center"></th>
+                                                    <th id="ch-land-11" class="border-0 text-center"></th>
+                                                    <th id="ch-land-12" class="border-0 text-center"></th>
+                                                    <th id="ch-land-13" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -478,18 +480,18 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='ch-temp-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='ch-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="ch-temp-0" class="border-0 text-center">지역</th>
-                                                    <th id="ch-temp-1" class="border-0 text-center">29일</th>
-                                                    <th id="ch-temp-2" class="border-0 text-center">30일</th>
-                                                    <th id="ch-temp-3" class="border-0 text-center">01일</th>
-                                                    <th id="ch-temp-4" class="border-0 text-center">02일</th>
-                                                    <th id="ch-temp-5" class="border-0 text-center">03일</th>
-                                                    <th id="ch-temp-6" class="border-0 text-center">04일</th>
-                                                    <th id="ch-temp-7" class="border-0 text-center">05일</th>
-                                                    <th id="ch-temp-8" class="border-0 text-center">06일</th>
+                                                    <th id="ch-temp-0" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-1" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-2" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-3" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-4" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-5" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-6" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-7" class="border-0 text-center"></th>
+                                                    <th id="ch-temp-8" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -527,23 +529,23 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='jl-land-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='jl-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="jl-land-0" class="border-0 text-center">지역</th>
-                                                    <th id="jl-land-1" class="border-0 text-center">29일(오전)</th>
-                                                    <th id="jl-land-2" class="border-0 text-center">29일(오후)</th>
-                                                    <th id="jl-land-3" class="border-0 text-center">30일(오전)</th>
-                                                    <th id="jl-land-4" class="border-0 text-center">30일(오후)</th>
-                                                    <th id="jl-land-5" class="border-0 text-center">01일(오전)</th>
-                                                    <th id="jl-land-6" class="border-0 text-center">01일(오후)</th>
-                                                    <th id="jl-land-7" class="border-0 text-center">02일(오전)</th>
-                                                    <th id="jl-land-8" class="border-0 text-center">02일(오후)</th>
-                                                    <th id="jl-land-9" class="border-0 text-center">03일(오전)</th>
-                                                    <th id="jl-land-10" class="border-0 text-center">03일(오후)</th>
-                                                    <th id="jl-land-11" class="border-0 text-center">04일</th>
-                                                    <th id="jl-land-12" class="border-0 text-center">05일</th>
-                                                    <th id="jl-land-13" class="border-0 text-center">06일</th>
+                                                    <th id="jl-land-0" class="border-0 text-center"></th>
+                                                    <th id="jl-land-1" class="border-0 text-center"></th>
+                                                    <th id="jl-land-2" class="border-0 text-center"></th>
+                                                    <th id="jl-land-3" class="border-0 text-center"></th>
+                                                    <th id="jl-land-4" class="border-0 text-center"></th>
+                                                    <th id="jl-land-5" class="border-0 text-center"></th>
+                                                    <th id="jl-land-6" class="border-0 text-center"></th>
+                                                    <th id="jl-land-7" class="border-0 text-center"></th>
+                                                    <th id="jl-land-8" class="border-0 text-center"></th>
+                                                    <th id="jl-land-9" class="border-0 text-center"></th>
+                                                    <th id="jl-land-10" class="border-0 text-center"></th>
+                                                    <th id="jl-land-11" class="border-0 text-center"></th>
+                                                    <th id="jl-land-12" class="border-0 text-center"></th>
+                                                    <th id="jl-land-13" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -563,18 +565,18 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='jl-temp-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='jl-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="jl-temp-0" class="border-0 text-center">지역</th>
-                                                    <th id="jl-temp-1" class="border-0 text-center">29일</th>
-                                                    <th id="jl-temp-2" class="border-0 text-center">30일</th>
-                                                    <th id="jl-temp-3" class="border-0 text-center">01일</th>
-                                                    <th id="jl-temp-4" class="border-0 text-center">02일</th>
-                                                    <th id="jl-temp-5" class="border-0 text-center">03일</th>
-                                                    <th id="jl-temp-6" class="border-0 text-center">04일</th>
-                                                    <th id="jl-temp-7" class="border-0 text-center">05일</th>
-                                                    <th id="jl-temp-8" class="border-0 text-center">06일</th>
+                                                    <th id="jl-temp-0" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-1" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-2" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-3" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-4" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-5" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-6" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-7" class="border-0 text-center"></th>
+                                                    <th id="jl-temp-8" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -612,23 +614,23 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='ks-land-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='ks-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="ks-land-0" class="border-0 text-center">지역</th>
-                                                    <th id="ks-land-1" class="border-0 text-center">29일(오전)</th>
-                                                    <th id="ks-land-2" class="border-0 text-center">29일(오후)</th>
-                                                    <th id="ks-land-3" class="border-0 text-center">30일(오전)</th>
-                                                    <th id="ks-land-4" class="border-0 text-center">30일(오후)</th>
-                                                    <th id="ks-land-5" class="border-0 text-center">01일(오전)</th>
-                                                    <th id="ks-land-6" class="border-0 text-center">01일(오후)</th>
-                                                    <th id="ks-land-7" class="border-0 text-center">02일(오전)</th>
-                                                    <th id="ks-land-8" class="border-0 text-center">02일(오후)</th>
-                                                    <th id="ks-land-9" class="border-0 text-center">03일(오전)</th>
-                                                    <th id="ks-land-10" class="border-0 text-center">03일(오후)</th>
-                                                    <th id="ks-land-11" class="border-0 text-center">04일</th>
-                                                    <th id="ks-land-12" class="border-0 text-center">05일</th>
-                                                    <th id="ks-land-13" class="border-0 text-center">06일</th>
+                                                    <th id="ks-land-0" class="border-0 text-center"></th>
+                                                    <th id="ks-land-1" class="border-0 text-center"></th>
+                                                    <th id="ks-land-2" class="border-0 text-center"></th>
+                                                    <th id="ks-land-3" class="border-0 text-center"></th>
+                                                    <th id="ks-land-4" class="border-0 text-center"></th>
+                                                    <th id="ks-land-5" class="border-0 text-center"></th>
+                                                    <th id="ks-land-6" class="border-0 text-center"></th>
+                                                    <th id="ks-land-7" class="border-0 text-center"></th>
+                                                    <th id="ks-land-8" class="border-0 text-center"></th>
+                                                    <th id="ks-land-9" class="border-0 text-center"></th>
+                                                    <th id="ks-land-10" class="border-0 text-center"></th>
+                                                    <th id="ks-land-11" class="border-0 text-center"></th>
+                                                    <th id="ks-land-12" class="border-0 text-center"></th>
+                                                    <th id="ks-land-13" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -648,18 +650,18 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='ks-temp-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='ks-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="ks-temp-0" class="border-0 text-center">지역</th>
-                                                    <th id="ks-temp-1" class="border-0 text-center">29일</th>
-                                                    <th id="ks-temp-2" class="border-0 text-center">30일</th>
-                                                    <th id="ks-temp-3" class="border-0 text-center">01일</th>
-                                                    <th id="ks-temp-4" class="border-0 text-center">02일</th>
-                                                    <th id="ks-temp-5" class="border-0 text-center">03일</th>
-                                                    <th id="ks-temp-6" class="border-0 text-center">04일</th>
-                                                    <th id="ks-temp-7" class="border-0 text-center">05일</th>
-                                                    <th id="ks-temp-8" class="border-0 text-center">06일</th>
+                                                    <th id="ks-temp-0" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-1" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-2" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-3" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-4" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-5" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-6" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-7" class="border-0 text-center"></th>
+                                                    <th id="ks-temp-8" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -697,23 +699,23 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='je-land-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='je-land-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="je-land-0" class="border-0 text-center">지역</th>
-                                                    <th id="je-land-1" class="border-0 text-center">29일(오전)</th>
-                                                    <th id="je-land-2" class="border-0 text-center">29일(오후)</th>
-                                                    <th id="je-land-3" class="border-0 text-center">30일(오전)</th>
-                                                    <th id="je-land-4" class="border-0 text-center">30일(오후)</th>
-                                                    <th id="je-land-5" class="border-0 text-center">01일(오전)</th>
-                                                    <th id="je-land-6" class="border-0 text-center">01일(오후)</th>
-                                                    <th id="je-land-7" class="border-0 text-center">02일(오전)</th>
-                                                    <th id="je-land-8" class="border-0 text-center">02일(오후)</th>
-                                                    <th id="je-land-9" class="border-0 text-center">03일(오전)</th>
-                                                    <th id="je-land-10" class="border-0 text-center">03일(오후)</th>
-                                                    <th id="je-land-11" class="border-0 text-center">04일</th>
-                                                    <th id="je-land-12" class="border-0 text-center">05일</th>
-                                                    <th id="je-land-13" class="border-0 text-center">06일</th>
+                                                    <th id="je-land-0" class="border-0 text-center"></th>
+                                                    <th id="je-land-1" class="border-0 text-center"></th>
+                                                    <th id="je-land-2" class="border-0 text-center"></th>
+                                                    <th id="je-land-3" class="border-0 text-center"></th>
+                                                    <th id="je-land-4" class="border-0 text-center"></th>
+                                                    <th id="je-land-5" class="border-0 text-center"></th>
+                                                    <th id="je-land-6" class="border-0 text-center"></th>
+                                                    <th id="je-land-7" class="border-0 text-center"></th>
+                                                    <th id="je-land-8" class="border-0 text-center"></th>
+                                                    <th id="je-land-9" class="border-0 text-center"></th>
+                                                    <th id="je-land-10" class="border-0 text-center"></th>
+                                                    <th id="je-land-11" class="border-0 text-center"></th>
+                                                    <th id="je-land-12" class="border-0 text-center"></th>
+                                                    <th id="je-land-13" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>
@@ -733,18 +735,18 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id='je-temp-table' class="stripe row-border order-column" style="width:100%">
+                                            <table id='je-temp-table' class="stripe row-border order-column data-tables" style="width:100%">
                                               <thead>
                                                   <tr>
-                                                    <th id="je-temp-0" class="border-0 text-center">지역</th>
-                                                    <th id="je-temp-1" class="border-0 text-center">29일</th>
-                                                    <th id="je-temp-2" class="border-0 text-center">30일</th>
-                                                    <th id="je-temp-3" class="border-0 text-center">01일</th>
-                                                    <th id="je-temp-4" class="border-0 text-center">02일</th>
-                                                    <th id="je-temp-5" class="border-0 text-center">03일</th>
-                                                    <th id="je-temp-6" class="border-0 text-center">04일</th>
-                                                    <th id="je-temp-7" class="border-0 text-center">05일</th>
-                                                    <th id="je-temp-8" class="border-0 text-center">06일</th>
+                                                    <th id="je-temp-0" class="border-0 text-center"></th>
+                                                    <th id="je-temp-1" class="border-0 text-center"></th>
+                                                    <th id="je-temp-2" class="border-0 text-center"></th>
+                                                    <th id="je-temp-3" class="border-0 text-center"></th>
+                                                    <th id="je-temp-4" class="border-0 text-center"></th>
+                                                    <th id="je-temp-5" class="border-0 text-center"></th>
+                                                    <th id="je-temp-6" class="border-0 text-center"></th>
+                                                    <th id="je-temp-7" class="border-0 text-center"></th>
+                                                    <th id="je-temp-8" class="border-0 text-center"></th>
                                                   </tr>
                                               </thead>
                                             </table>

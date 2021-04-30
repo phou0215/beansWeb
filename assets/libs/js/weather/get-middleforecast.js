@@ -17,7 +17,7 @@ var obj_loc_midFcst = {
 }
 var obj_loc_landFcst = {
   sk:['서울.인천.경기도'],
-  kg:['강원도영서', '강원도영동'],
+  kg:['강원도 영서', '강원도 영동'],
   ch:['충청북도', '대전.세종.충청남도'],
   jl:['전라북도','광주.전라남도'],
   ks:['대구.경상북도', '부산.울산.경상남도'],
@@ -31,7 +31,19 @@ var obj_loc_tempFcst = {
   ks:['부산','울산','창원','대구','안동','포항'],
   je:['제주','서귀포','성산','이어도','추자도','고산']
 }
-
+var weather_con = {
+  '맑음':'wi wi-day-sunny',
+  '구름많음':'wi wi-cloudy',
+  '구름많고 비':'wi wi-rain',
+  '구름많고 눈':'wi wi-snow',
+  '구름많고 비/눈':'wi wi-rain-mix',
+  '구름많고 소나기':'wi wi-showers',
+  '흐림':'wi wi-day-cloudy',
+  '흐리고 비':'wi wi-day-rain',
+  '흐리고 눈':'wi wi-day-snow',
+  '흐리고 비/눈':'wi wi-day-rain-mix',
+  '흐리고 소나기':'wi wi-day-storm-showers',
+}
 //page start
 $(function() {
   $(document).ready(function() {
@@ -45,10 +57,7 @@ $(function() {
   });
 });
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
+// main function of middle forecast
 function getForecastData(loc){
   var jsonData = null;
   $.ajax({
@@ -85,89 +94,166 @@ function getForecastData(loc){
         $('#'+loc+'-land-table').DataTable().clear().destroy();
         var land = jsonData.land;
         var land_col = jsonData.index_land;
-        var reformed = reformedDataTable(obj_loc_landFcst[loc], land_col, land);
-        console.log(reformed);
-        setColTable(loc+'-land-', land_col);
-          $('#'+loc+'-land-table').DataTable({
+        var reformed = reformedLandDataTable(obj_loc_landFcst[loc], land_col, land);
+
+        $('#'+loc+'-land-table').DataTable({
           data: reformed,
           columns:[
             {data:"LOC"},
             {
               data:land_col[0],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[1],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[2],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[3],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[4],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[5],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[6],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[7],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[8],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[9],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[10],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[11],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
             {
               data:land_col[12],
               render:function(data, type, full, meta){
-                  return '강수:'+data[0]+'하늘상태:'+data[1];
+                  var sky_icon = data[1];
+                  var rain_drop = data[0];
+                  var source = '<div class="row">'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:rgba(117,163,102,0.8);">'+
+                              '<i class="'+weather_con[sky_icon]+'" style=font-size:30px;></i></div>'+
+                              '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ml-1 mt-1">'+rain_drop+'%</div></div>';
+                  return source;
               }
             },
           ],
@@ -204,58 +290,151 @@ function getForecastData(loc){
           fixedColumns: true,
           pageLength: 25,
         });
+        //set land table columns
+        setColTable(loc+'-land-', land_col);
 
-        // for(var i = 0; i < 6; i++){
-        //   var data  = jsonData[i];
-        //   var sunsetTime = data.sunset;
-        //   var fcstTime = data.fcst_datetime;
-        //   var flag = isDaytime(fcst_time=fcstTime, sunset_time=sunsetTime);
-        //   var weather_icon_className = '';
-        //   var pty = data.pty;
-        //   var sky = data.sky;
-        //   //현재 날씨  icon 선택 day or night을 거친 후 이모티콘 선택
-        //   if(flag){
-        //     if(pty == "없음"){
-        //       weather_icon_className = weather_day_sky_con[sky];
-        //     }else{
-        //       weather_icon_className = weather_day_con[pty];
-        //     }
-        //   }else{
-        //     if(pty == "없음"){
-        //       weather_icon_className = weather_night_sky_con[sky];
-        //     }else{
-        //       weather_icon_className = weather_night_con[pty];
-        //     }
-        //   }
-        //   //날씨 아이콘
-        //   $('#forecast-icon-'+i.toString()).attr('class', weather_icon_className);
-        //   // 예보 기준 시간
-        //   //base_time reformed
-        //   var fsct_value = fcst_time.substr(0, fcst_time.length - 3);
-        //   $('#forecast-base-'+i.toString()).text(fsct_value);
-        //   //온도
-        //   $('#forecast-t1h-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i class="wi wi-thermometer" style=font-size:22px;></i></span>&nbsp&nbsp&nbsp'+data.t3h+'℃');
-        //   //풍향
-        //   // $('#forecast-wsd-icon-'+i.toString()).attr('class', vec_deretion[data.vec]);
-        //   $('#forecast-wsd-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i id="forecast-wsd-icon-0" class="'+vec_deretion[data.vec]+'" style=font-size:25px;></i></span>&nbsp'+data.vec+' '+data.wsd+' m/s');
-        //   $('#forecast-reh-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i class="wi wi-humidity" style=font-size:21px;></i></span>&nbsp&nbsp'+data.reh+'%');
-        //   $('#forecast-pop-'+i.toString()).html('<span style="color:rgba(117,163,102,0.8);"><i class="wi wi-storm-showers" style=font-size:21px;></i></span>&nbsp'+data.pop+'%');
-        //   //draw chartjs graph grid
-        //   gridGraph(selected_type);
-        // }
+
+        //set Table of Temp forecast
+        $('#'+loc+'-temp-table').DataTable().clear().destroy();
+        var temp = jsonData.temp;
+        var temp_col = jsonData.index_temp;
+        reformed = reformedTempDataTable(obj_loc_tempFcst[loc], temp_col, temp);
+        $('#'+loc+'-temp-table').DataTable({
+          data: reformed,
+          columns:[
+            {data:"LOC"},
+            {
+              data:temp_col[0],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[1],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[2],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[3],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[4],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[5],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[6],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            },
+            {
+              data:temp_col[7],
+              render:function(data, type, full, meta){
+                  var min = data[0];
+                  var max = data[1];
+                  var source = '<span class="text-primary" style="font-size:15px;">'+
+                  min+'</span>&nbsp/&nbsp<span class="text-danger" style="font-size:15px;">'+
+                  max+'</span>'
+                  return source;
+              }
+            }
+          ],
+          scrollY: "450px",
+          // scrollX: true,
+          scrollCollapse: true,
+          // 페이징 기능 숨기기
+          paging: false,
+          // 표시 건수기능 숨기기
+          lengthChange: false,
+          // 검색 기능 숨기기
+          searching: false,
+          // 정렬 기능 숨기기
+          ordering: false,
+          // 정보 표시 숨기기
+          info: false,
+
+          columnDefs: [
+              { width: '12%', targets: 0 },
+              { width: '10%', targets: 1 },
+              { width: '10%', targets: 2 },
+              { width: '10%', targets: 3 },
+              { width: '10%', targets: 4 },
+              { width: '10%', targets: 5 },
+              { width: '10%', targets: 6 },
+              { width: '10%', targets: 7 },
+              { width: '10%', targets: 8 },
+          ],
+          fixedColumns: true,
+          pageLength: 25,
+        });
+        //set land table columns
+        setColTable(loc+'-temp-', temp_col);
       },
       error: function (request, status, error){
       console.log('code: '+request.status+"\n"+'message: '+request.responseText+"\n"+'error: '+error);
       }
     });
 }
-
+// replace from \n to br tag
 function parseNewline(text){
   var return_text = text.replace(/\n/g,"<br/>");
   return return_text;
 }
-
-function reformedDataTable(loc_index, date_index, land_data){
+//land data reformed
+function reformedLandDataTable(loc_index, date_index, land_data){
   var return_array = [];
   for(var i = 0; i < loc_index.length; i++){
     var obj_row = {};
@@ -268,16 +447,24 @@ function reformedDataTable(loc_index, date_index, land_data){
   }
   return return_array;
 }
-
+//temp data reformed
+function reformedTempDataTable(loc_index, date_index, temp_data){
+  var return_array = [];
+  for(var i = 0; i < loc_index.length; i++){
+    var obj_row = {};
+    obj_row['LOC'] = loc_index[i];
+    // load rain data and sky data on obj_row
+    for (var j = 0; j < temp_data[i]['max'].length; j++){
+      obj_row[date_index[j]] = [temp_data[i]['min'][j], temp_data[i]['max'][j]];
+    }
+    return_array.push(obj_row);
+  }
+  return return_array;
+}
+//set table th column name
 function setColTable(id, index_data){
-  for( var i = 1; i < index_data.length; i++){
-    $('#id'+i).text(index_data[i]);
+  $('#'+id+'0').text('지역');
+  for( var i = 0; i < index_data.length; i++){
+    $('#'+id+(i+1)).text(index_data[i]);
   }
 }
-
-// function landData(reforedData){
-//   var return_obj = null;
-//   for (var item in reforedData){
-//     return null;
-//   }
-// }

@@ -66,8 +66,12 @@
       //regular express of items
       $regular = "/([\(\/].*)/";
       while($i < count($result)){
-
-        $supplier = $result[$i]['PU_CUST_NM'];
+        $supplier = 'No Data';
+        if(array_key_exists('PU_CUST_NM', $result[$i])){
+          $supplier = $result[$i]['PU_CUST_NM'];
+        }else{
+           $result[$i]['PU_CUST_NM'] = 'No Data';
+        }
         $item = $result[$i]['ITEMCLS3_NM'];
         $category = $result[$i]['ITEMCLS2_NM'];
         //substr item special character

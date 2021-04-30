@@ -46,12 +46,14 @@
         //null check
         $supp_tel = $result[$i]['TEL_NO'];
         $supp_address = $result[$i]['ADDR'];
-
+        if(!array_key_exists("CUST_NM", $result[$i])){
+          $result[$i]["CUST_NM"] = "No Data";
+        }
         if(!$supp_tel || trim($supp_tel) == ""){
-          $result[$i]['TEL_NO'] = '정보없음';
+          $result[$i]['TEL_NO'] = 'No Data';
         }
         if(!$supp_address || trim($supp_address) == ""){
-          $result[$i]['ADDR'] = '정보없음';
+          $result[$i]['ADDR'] = 'No Data';
         }
         $i++;
       }
