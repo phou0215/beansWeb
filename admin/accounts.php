@@ -12,16 +12,6 @@
       $conn = mysqli_connect($config['host'],$config['user'],$config['password']);
       mysqli_select_db($conn, $config['database']);
 
-      // 최신 저장된 데이터 날짜 가져오기
-      $weather_recent = mysqli_query($conn, "SELECT BASE_DATE, BASE_TIME FROM weather ORDER BY UPLOAD_TIME DESC LIMIT 1");
-      $row_weather = mysqli_fetch_assoc($weather_recent);
-      $forecast_recent = mysqli_query($conn, "SELECT BASE_DATE, BASE_TIME FROM forecast ORDER BY UPLOAD_TIME DESC LIMIT 1");
-      $row_forecast = mysqli_fetch_assoc($forecast_recent);
-      $weather_base_date = $row_weather['BASE_DATE'];
-      $weather_base_time = $row_weather['BASE_TIME'];
-      $forecast_base_date = $row_forecast['BASE_DATE'];
-      $forecast_base_time = $row_forecast['BASE_TIME'];
-      mysqli_close($conn);
  ?>
 <!doctype html>
 <html lang="en">
@@ -143,9 +133,9 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/beans/schedule/main.php">Main</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link" href="/beans/schedule/edit.php">Edit Schedule</a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </li>
@@ -217,89 +207,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- end pageheader -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- simple weather -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                          <div class="card-header d-flex">
-                            <h2 class="card-header-title">Weather</h2>
-                            <!-- <select id="selectState" class="custom-select w-auto" style='margin-left:5px;'>
-                              <option value="1" selected='selected'></option>
-                              <option value="2">평일평균</option>
-                              <option value="3">3주평균</option>
-                            </select> -->
-                            <!-- <button type="button" class="btn btn-success" onclick="category_update();" style=" height:39px; width:100px; margin-left:5px;">OK</button> -->
-                          </div>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                      <!-- 날씨 아이콘 -->
-                                      <div class="float-left icon-circle-medium icon-box-lg bg-info-light mt-1">
-                                        <i class="fa fa-eye fa-fw fa-sm text-info"></i>
-                                      </div>
-                                      <!-- 지역 정보 -->
-                                      <div class="d-inline-block">
-                                        <h2 class="text-muted">충청남도 예산군 덕산면</h2>
-                                        <h2 class="mb-0">2021-02-25 16:00(sample)</h2>
-                                        <h2 class="mb-0">
-                                      </div>
-                                      <!-- 해당 날씨 정보 -->
-                                      <div class=" d-inline-block float-right">
-                                        <h2 class="text-muted">충청남도 예산군 덕산면</h2>
-                                        <h2 class="mb-0">2021-02-25 16:00(sample)</h2>
-                                        <h2 class="mb-0">
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
-                              <!-- 일기 예보 온도 변화 -->
-                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
-                            </div>
-                          </div>
-                          <div class="card-footer text-center">
-                            <a href="/beans/weather/main.php" class="card-link">View Details</a>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- end simple weather -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- simple calendar -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                          <div class="card-header d-flex">
-                            <h2 class="card-header-title">Schedule</h2>
-                            <select id="selectNet3" class="custom-select ml-auto w-auto">
-                              <option value="5G" selected='selected'>5G</option>
-                              <option value="LTE">LTE</option>
-                            </select>
-                            <select id="selectAvg3" class="custom-select w-auto" style='margin-left:5px;'>
-                              <option value="1" selected='selected'>전주</option>
-                              <option value="2">평일평균</option>
-                              <option value="3">3주평균</option>
-                            </select>
-                            <button id='sum_update' type="button" class="btn btn-info" onclick="category_update();" style=" height:39px; width:100px; margin-left:5px;">OK</button>
-                          </div>
-                            <div class="card-body">
-                                <div id='calendar1'></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- end simple calendar -->
-                <!-- ============================================================== -->
+
+
+
+
 
             </div>
           <!-- ============================================================== -->

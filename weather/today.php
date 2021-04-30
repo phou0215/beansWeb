@@ -52,7 +52,7 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="/baens/index.php" class="connection-item"><img src="/beans/assets/images/dashboard.png" alt="" > <span>Dashboard</span></a>
+                                            <a href="/beans/index.php" class="connection-item"><img src="/beans/assets/images/dashboard.png" alt="" > <span>Dashboard</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="/beans/weather/today.php" class="connection-item"><img src="/beans/assets/images/weather.png" alt="" > <span>Weather</span></a>
